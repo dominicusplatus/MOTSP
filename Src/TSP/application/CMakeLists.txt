@@ -1,0 +1,5 @@
+include_directories(${EO_INCLUDE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/src)
+add_executable(tsp tsp.cpp) 
+target_link_libraries(tsp ${PARADISEO_LIBRARIES} ltsp)
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
