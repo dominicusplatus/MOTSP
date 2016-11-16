@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>TspSolverMainView.qml</file>
+        <file>main 2.qml</file>
+        <file>Data.qml</file>
+        <file>NewButton.qml</file>
     </qresource>
 </RCC>

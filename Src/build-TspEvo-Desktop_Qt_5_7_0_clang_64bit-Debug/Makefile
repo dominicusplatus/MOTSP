@@ -88,11 +88,15 @@ DIST          = /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/features/spec_pre.prf
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bluetooth.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_charts.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_charts_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_clucene_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_concurrent.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_core.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_core_private.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_dbus.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_designer.pri \
@@ -257,11 +261,15 @@ Makefile: ../TspEvo/TspEvo.pro /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/macx-c
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bluetooth.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_charts.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_charts_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_clucene_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_concurrent.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_core.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_core_private.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_dbus.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_designer.pri \
@@ -419,11 +427,15 @@ Makefile: ../TspEvo/TspEvo.pro /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/macx-c
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bluetooth.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bluetooth_private.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_bootstrap_private.pri:
+/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_charts.pri:
+/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_charts_private.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_clucene_private.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_concurrent.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_core.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_core_private.pri:
+/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_datavisualization.pri:
+/Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_datavisualization_private.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_dbus.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_dbus_private.pri:
 /Users/dominikguz/Qt2/5.7/clang_64/mkspecs/modules/qt_lib_designer.pri:
@@ -608,6 +620,8 @@ compiler_rcc_clean:
 qrc_qml.cpp: ../TspEvo/qml.qrc \
 		/Users/dominikguz/Qt2/5.7/clang_64/bin/rcc \
 		../TspEvo/TspSolverMainView.qml \
+		../TspEvo/Data.qml \
+		../TspEvo/NewButton.qml \
 		../TspEvo/main.qml
 	/Users/dominikguz/Qt2/5.7/clang_64/bin/rcc -name qml ../TspEvo/qml.qrc -o qrc_qml.cpp
 
@@ -637,7 +651,10 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean
 main.o: ../TspEvo/main.cpp /Users/dominikguz/Qt2/5.7/clang_64/lib/QtGui.framework/Headers/QGuiApplication \
 		/Users/dominikguz/Qt2/5.7/clang_64/lib/QtGui.framework/Headers/qguiapplication.h \
 		/Users/dominikguz/Qt2/5.7/clang_64/lib/QtQml.framework/Headers/QQmlApplicationEngine \
-		/Users/dominikguz/Qt2/5.7/clang_64/lib/QtQml.framework/Headers/qqmlapplicationengine.h
+		/Users/dominikguz/Qt2/5.7/clang_64/lib/QtQml.framework/Headers/qqmlapplicationengine.h \
+		../TspEvo/Model/tspevosolverviewmodel.h \
+		/Users/dominikguz/Qt2/5.7/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/dominikguz/Qt2/5.7/clang_64/lib/QtCore.framework/Headers/qobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../TspEvo/main.cpp
 
 tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevosolverviewmodel.h \
