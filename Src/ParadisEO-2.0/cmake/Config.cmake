@@ -8,8 +8,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     execute_process (COMMAND /usr/bin/sw_vers -productVersion OUTPUT_VARIABLE MACOSX_VERSION_RAW)
     string(REGEX REPLACE "10\\.([0-9]).*" "\\1" MACOSX_VERSION "${MACOSX_VERSION_RAW}")
     if(${MACOSX_VERSION} LESS 5)
-        message(FATAL_ERROR "Unsupported version of OS X : ${MACOSX_VERSION_RAW}")
-        return()
+
     endif()
 endif()
 

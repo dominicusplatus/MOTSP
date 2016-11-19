@@ -66,7 +66,16 @@ Actually, by default the generator will be "Unix Makefiles" and cmake will try t
 Be sure you have make installed, or choose an alternative according to your configuration. 
 To know available generators on your computer, type cmake -help. If you are on Windows and you use MinGW, you have to specify it explicitly by adding -G "MinGW Makefiles".
 
-To compile ParadisEO simply compile sources using your generator. For instance, if you are using Unix Makefiles, type make.
+To compile ParadisEO simply compile sources using your generator. For instance, if you are using Unix Makefil
+/Users/dominikguz/Documents/Masters/S1/ParetoTSP/Src/ParadisEO-2.0
+
+
+
+
+/Users/dominikguz/Documents/Masters/S1/ParetoTSP/Src/ParadisEO-2.0
+
+
+es, type make.
 
 ------------------------------------------------------------------------------------------
 1.2 BUILD TYPE
@@ -119,7 +128,8 @@ To enable the compilation of the SMP module, just add -DSMP=true to CMake :
 > cmake .. -DSMP=true
 
 Depending on your distribution, you might have to give to CMake the path of gcc and g++ 4.7.
-This is the case for Ubuntu 12.04 LTS for instance. Please, check installation guide on ParadisEO website for more details.
+This is the case for Ubuntu 12.04 LTS for instance. Please, check installation guide on /Users/dominikguz/Documents/Repo/Git/sconnSoftware/Users/dominikguz/Documents/Repo/Git/sconnSoftware/Users/dominikguz/Documents/Repo/Git/sconnSoftware/Users/dominikguz/Documents/Repo/Git/sconnSoftware
+/Users/dominikguz/Documents/Repo/Git/sconnSoftware website for more details.
 
 If you are in that case and assuming you have a standard path for gcc et g++ 4.7 :
 
