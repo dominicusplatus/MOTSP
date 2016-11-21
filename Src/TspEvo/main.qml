@@ -9,8 +9,7 @@ ApplicationWindow {
     width:  1024
     height:  768
 
-    property Component internalDelegate
-    property QtObject alarmSystemModel
+    title: "ATH MOTSP"
 
     Rectangle{
         width:  1024 //parent.width
