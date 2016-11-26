@@ -21,7 +21,8 @@ Rectangle {
     width: 800
     height: 600
 
-    property var model : TspEvoSolverViewModel{}
+     property TspEvoSolverViewModel solverModel : TspEvoSolverViewModel{}
+
 
     Data {
         id: data
@@ -80,15 +81,16 @@ Rectangle {
                 antialiasing: true
 
                 LineSeries {
-                    name: "LineSeries"
-                    XYPoint { x: 0; y: 0 }
-                    XYPoint { x: 1.1; y: 2.1 }
-                    XYPoint { x: 1.9; y: 3.3 }
-                    XYPoint { x: 2.1; y: 2.1 }
-                    XYPoint { x: 2.9; y: 4.9 }
-                    XYPoint { x: 3.4; y: 3.0 }
-                    XYPoint { x: 4.1; y: 3.3 }
+                    id: lineone
+                    name: "Line 1"
                 }
+                VXYModelMapper{
+                    model: solverModel    //TspEvoSolverViewModel{}  //model   //TspEvoFitnessHistoryDataModel{}
+                    series: lineone
+                    xColumn: 0
+                    yColumn: 1
+                }
+
             }
 
         }
@@ -133,35 +135,53 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 columns: 2
 
-                NewButton {
-                    Layout.minimumWidth: parent.width / 2
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    text: "Clear Selections"
-                    onClicked: clearSelections() // call a helper function to keep button itself simpler
+
+                Label {
+                    text: "Algorithm"
+                }
+
+                ComboBox {
+                    currentIndex: 1
+                    model: ListModel {
+                        id: cbItems2
+                        ListElement { text: "MOGA";  }
+                        ListElement { text: "EasyEA"; }
+                        ListElement { text: "IBEA"; }
+                        ListElement { text: "ASEEA"; }
+                        ListElement { text: "NSGA"; }
+                        ListElement { text: "PLS1"; }
+                        ListElement { text: "PLS2"; }
+                        ListElement { text: "SEEA"; }
+                        ListElement { text: "SPEA2"; }
+                    }
+                    width: 200
+                    onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
+                }
+
+
+                Label {
+                    text: "Population size"
+                }
+
+                SpinBox {
+                    id: spinboxPopSize
+                    value : solverModel.populationSize
+                    onValueChanged : {
+                              solverModel.setpopulationSize(spinboxPopSize.value);
+                    }
                 }
 
                 NewButton {
-                    Layout.minimumWidth: parent.width / 2
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    text: "Quit"
-                    onClicked: Qt.quit(0);
+                   // Layout.width: parent.width / 2
+                    width : parent.width * 0.6
+                    height : parent.height * 0.2
+                    //Layout.fillHeight: true
+                   // Layout.fillWidth: true
+                    text: "Solve"
+                    onClicked: solverModel.Solve(); // call a helper function to keep button itself simpler
                 }
 
-                NewButton {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    text: "Reset Cameras"
-                    onClicked: resetCameras() // call a helper function to keep button itself simpler
-                }
 
-                NewButton {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    text: "Toggle Mesh Styles"
-                    onClicked: toggleMeshStyle() // call a helper function to keep button itself simpler
-                }
             }
 
         }
