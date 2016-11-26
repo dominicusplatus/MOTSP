@@ -28,61 +28,93 @@ Rectangle {
         id: data
     }
 
-    //! [0]
+
     GridLayout {
         id: gridLayout
         columns: 2
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        anchors.top: mainView.top
-        anchors.bottom: mainView.bottom
-        anchors.left: mainView.left
-        anchors.right: mainView.right
+        rows : 2
+        width: parent.width
+        height : parent.height
 
         Rectangle {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            border.color: surfaceGraph.theme.gridLineColor
-            border.width: 2
+            width: parent.width *0.5
+            height : parent.height *0.5
 
-            Surface3D {
-                id: surfaceGraph
-                anchors.fill: parent
-                anchors.margins: parent.border.width
-                theme: Theme3D {
-                    type: Theme3D.ThemePrimaryColors
-                    font.pointSize: 60
-                }
-                scene.activeCamera.cameraPreset: Camera3D.CameraPresetIsometricLeftHigh
 
-                Surface3DSeries {
-                    itemLabelFormat: "Pop density at (@xLabel N, @zLabel E): @yLabel"
-                    ItemModelSurfaceDataProxy {
-                        itemModel: data.sharedData
-                        // The surface data points are not neatly lined up in rows and columns,
-                        // so we define explicit row and column roles.
-                        rowRole: "row"
-                        columnRole: "col"
-                        xPosRole: "latitude"
-                        zPosRole: "longitude"
-                        yPosRole: "pop_density"
-                    }
+            GridLayout {
+                id: gridLayoutGraphs
+                columns: 2
+                rows : 2
+                width: parent.width
+                height : parent.height
+
+                Rectangle {
+                    width: parent.width *0.5
+                    height : parent.height *0.5
+                    color: "#164268"
+
+                    TspPathGraphView {
+                            id: graph1
+                            anchors.centerIn: parent
+                            width: 100; height: 100
+                        }
+
                 }
+
+                Rectangle {
+                    width: parent.width *0.5
+                    height : parent.height *0.5
+                    color: "#854268"
+
+                    TspPathGraphView {
+                            id: graph12
+                            anchors.centerIn: parent
+                            width: 100; height: 100
+                        }
+
+                }
+
+                Rectangle {
+                    width: parent.width *0.5
+                    height : parent.height *0.5
+                    color: "#264268"
+
+                    TspPathGraphView {
+                            id: graph123
+                            anchors.centerIn: parent
+                            width: 100; height: 100
+                        }
+
+                }
+
+                Rectangle {
+                    width: parent.width *0.5
+                    height : parent.height *0.5
+                    color: "#185268"
+
+                    TspPathGraphView {
+                            id: graph1234
+                            anchors.centerIn: parent
+                            width: 100; height: 100
+                        }
+                }
+
             }
         }
 
         // We'll use one grid cell for buttons
         Rectangle {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            width: parent.width *0.5
+            height : parent.height *0.5
+
             ChartView {
-                title: "Line"
+                title: "Fitness history"
                 anchors.fill: parent
                 antialiasing: true
 
                 LineSeries {
                     id: lineone
-                    name: "Line 1"
+                    name: "Generation fitness"
                 }
                 VXYModelMapper{
                     model: solverModel    //TspEvoSolverViewModel{}  //model   //TspEvoFitnessHistoryDataModel{}
@@ -96,8 +128,8 @@ Rectangle {
         }
 
         Rectangle {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            width: parent.width *0.5
+            height : parent.height *0.5
             border.color: scatterGraph.theme.gridLineColor
             border.width: 2
 
@@ -112,21 +144,21 @@ Rectangle {
                 scene.activeCamera.cameraPreset: Camera3D.CameraPresetIsometricLeftHigh
 
                 Scatter3DSeries {
-                    itemLabelFormat: "Pop density at (@xLabel N, @zLabel E): @yLabel"
+                    itemLabelFormat: "City (@xLabel N, @zLabel E): @yLabel"
                     ItemModelScatterDataProxy {
                         itemModel: data.sharedData
                         // Mapping model roles to scatter series item coordinates.
-                        xPosRole: "latitude"
-                        zPosRole: "longitude"
-                        yPosRole: "pop_density"
+                        xPosRole: "Distance"
+                        zPosRole: "Cost"
+                        yPosRole: "Generation"
                     }
                 }
             }
         }
 
         Rectangle {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            width: parent.width *0.5
+            height : parent.height *0.5
 
             GridLayout {
                 anchors.right: parent.right

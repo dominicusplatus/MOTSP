@@ -50,15 +50,19 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../TspEvo/main.cpp \
 		../TspEvo/Model/tspevosolverviewmodel.cpp \
-		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp qrc_qml.cpp \
+		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp \
+		../TspEvo/tsppathgraphview.cpp qrc_qml.cpp \
 		moc_tspevosolverviewmodel.cpp \
-		moc_tspevofitnesshistorydatamodel.cpp
+		moc_tspevofitnesshistorydatamodel.cpp \
+		moc_tsppathgraphview.cpp
 OBJECTS       = main.o \
 		tspevosolverviewmodel.o \
 		tspevofitnesshistorydatamodel.o \
+		tsppathgraphview.o \
 		qrc_qml.o \
 		moc_tspevosolverviewmodel.o \
-		moc_tspevofitnesshistorydatamodel.o
+		moc_tspevofitnesshistorydatamodel.o \
+		moc_tsppathgraphview.o
 DIST          = /home/dominicus/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/dominicus/Qt/5.7/gcc_64/mkspecs/common/unix.conf \
 		/home/dominicus/Qt/5.7/gcc_64/mkspecs/common/linux.conf \
@@ -214,9 +218,11 @@ DIST          = /home/dominicus/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/dominicus/Qt/5.7/gcc_64/mkspecs/features/lex.prf \
 		../TspEvo/TspEvo.pro tspevosolverviewmodel.h \
 		../TspEvo/Model/tspevosolverviewmodel.h \
-		../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/main.cpp \
+		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
+		../TspEvo/tsppathgraphview.h ../TspEvo/main.cpp \
 		../TspEvo/Model/tspevosolverviewmodel.cpp \
-		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp
+		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp \
+		../TspEvo/tsppathgraphview.cpp
 QMAKE_TARGET  = TspEvo
 DESTDIR       = 
 TARGET        = TspEvo
@@ -568,8 +574,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../TspEvo/qml.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/tsppathgraphview.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -604,9 +610,9 @@ qrc_qml.cpp: ../TspEvo/qml.qrc \
 		../TspEvo/main.qml
 	/home/dominicus/Qt/5.7/gcc_64/bin/rcc -name qml ../TspEvo/qml.qrc -o qrc_qml.cpp
 
-compiler_moc_header_make_all: moc_tspevosolverviewmodel.cpp moc_tspevofitnesshistorydatamodel.cpp
+compiler_moc_header_make_all: moc_tspevosolverviewmodel.cpp moc_tspevofitnesshistorydatamodel.cpp moc_tsppathgraphview.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_tspevosolverviewmodel.cpp moc_tspevofitnesshistorydatamodel.cpp
+	-$(DEL_FILE) moc_tspevosolverviewmodel.cpp moc_tspevofitnesshistorydatamodel.cpp moc_tsppathgraphview.cpp
 moc_tspevosolverviewmodel.cpp: /home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs.h \
@@ -655,6 +661,29 @@ moc_tspevosolverviewmodel.cpp: /home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObj
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QVector \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QAbstractTableModel \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qset.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QHash \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
 		../TspEvo/Model/tspevosolverviewmodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/bin/moc
 	/home/dominicus/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/dominicus/Qt/5.7/gcc_64/mkspecs/linux-g++ -I/home/dominicus/Documents/INF/paretoevo/Src/TspEvo -I/usr/include/paradiseo/eo -I/usr/include/paradiseo/mo -I/usr/include/paradiseo/moeo -I/usr/include/paradiseo -I/home/dominicus/Qt/5.7/gcc_64/include -I/home/dominicus/Qt/5.7/gcc_64/include/QtQuick -I/home/dominicus/Qt/5.7/gcc_64/include/QtOpenGL -I/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets -I/home/dominicus/Qt/5.7/gcc_64/include/QtGui -I/home/dominicus/Qt/5.7/gcc_64/include/QtQml -I/home/dominicus/Qt/5.7/gcc_64/include/QtNetwork -I/home/dominicus/Qt/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../TspEvo/Model/tspevosolverviewmodel.h -o moc_tspevosolverviewmodel.cpp
@@ -730,6 +759,126 @@ moc_tspevofitnesshistorydatamodel.cpp: /home/dominicus/Qt/5.7/gcc_64/include/QtC
 		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/bin/moc
 	/home/dominicus/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/dominicus/Qt/5.7/gcc_64/mkspecs/linux-g++ -I/home/dominicus/Documents/INF/paretoevo/Src/TspEvo -I/usr/include/paradiseo/eo -I/usr/include/paradiseo/mo -I/usr/include/paradiseo/moeo -I/usr/include/paradiseo -I/home/dominicus/Qt/5.7/gcc_64/include -I/home/dominicus/Qt/5.7/gcc_64/include/QtQuick -I/home/dominicus/Qt/5.7/gcc_64/include/QtOpenGL -I/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets -I/home/dominicus/Qt/5.7/gcc_64/include/QtGui -I/home/dominicus/Qt/5.7/gcc_64/include/QtQml -I/home/dominicus/Qt/5.7/gcc_64/include/QtNetwork -I/home/dominicus/Qt/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../TspEvo/Model/tspevofitnesshistorydatamodel.h -o moc_tspevofitnesshistorydatamodel.cpp
+
+moc_tsppathgraphview.cpp: /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QPainter \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpainter.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qnamespace.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qconfig.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfeatures.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtypetraits.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qisenum.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsysinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlogging.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qflags.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmutex.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qnumeric.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qversiontagging.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpixmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringlist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiterator.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrefcount.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qarraydata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qchar.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpair.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbytearray.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstring.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qregexp.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcoreevent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmetatype.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qimage.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtransform.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qmatrix.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpolygon.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qregion.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdatastream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qline.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qbrush.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qfont.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/QQuickPaintedItem \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qquickpainteditem.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qquickitem.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qtquickglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqml.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlprivate.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qtqmlglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qset.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qurl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qurlquery.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlparserstatus.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlpropertyvaluesource.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmllist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmetaobject.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcomponent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlerror.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qjsvalue.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QList \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qevent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfile.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qaccessible.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
+		../TspEvo/tsppathgraphview.h \
+		/home/dominicus/Qt/5.7/gcc_64/bin/moc
+	/home/dominicus/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/dominicus/Qt/5.7/gcc_64/mkspecs/linux-g++ -I/home/dominicus/Documents/INF/paretoevo/Src/TspEvo -I/usr/include/paradiseo/eo -I/usr/include/paradiseo/mo -I/usr/include/paradiseo/moeo -I/usr/include/paradiseo -I/home/dominicus/Qt/5.7/gcc_64/include -I/home/dominicus/Qt/5.7/gcc_64/include/QtQuick -I/home/dominicus/Qt/5.7/gcc_64/include/QtOpenGL -I/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets -I/home/dominicus/Qt/5.7/gcc_64/include/QtGui -I/home/dominicus/Qt/5.7/gcc_64/include/QtQml -I/home/dominicus/Qt/5.7/gcc_64/include/QtNetwork -I/home/dominicus/Qt/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../TspEvo/tsppathgraphview.h -o moc_tsppathgraphview.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -832,14 +981,20 @@ main.o: ../TspEvo/main.cpp /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QGuiAppli
 		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmldebug.h \
 		../TspEvo/Model/tspevosolverviewmodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QVector \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QAbstractTableModel \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QHash \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/QApplication \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/qapplication.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcursor.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpaintdevice.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpalette.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
@@ -864,7 +1019,9 @@ main.o: ../TspEvo/main.cpp /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QGuiAppli
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfile.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/QQmlContext \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcontext.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../TspEvo/main.cpp
 
 tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevosolverviewmodel.h \
@@ -915,7 +1072,36 @@ tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Mod
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmetatype.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject_impl.h
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QVector \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QAbstractTableModel \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qset.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QHash \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QTime \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdatetime.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspevosolverviewmodel.o ../TspEvo/Model/tspevosolverviewmodel.cpp
 
 tspevofitnesshistorydatamodel.o: ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.h \
@@ -993,8 +1179,129 @@ tspevofitnesshistorydatamodel.o: ../TspEvo/Model/tspevofitnesshistorydatamodel.c
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
+		../TspEvo/Model/tspevosolverviewmodel.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspevofitnesshistorydatamodel.o ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp
+
+tsppathgraphview.o: ../TspEvo/tsppathgraphview.cpp ../TspEvo/tsppathgraphview.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QPainter \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpainter.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qnamespace.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qconfig.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfeatures.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtypetraits.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qisenum.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsysinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlogging.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qflags.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmutex.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qnumeric.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qversiontagging.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpixmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringlist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiterator.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrefcount.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qarraydata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qchar.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpair.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbytearray.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstring.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qregexp.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcoreevent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmetatype.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qimage.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpixelformat.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtransform.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qmatrix.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpolygon.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qregion.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdatastream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qline.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpainterpath.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qbrush.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qfontinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qfont.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/QQuickPaintedItem \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qquickpainteditem.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qquickitem.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qtquickglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqml.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlprivate.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qtqmlglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qset.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qurl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qurlquery.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlparserstatus.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlpropertyvaluesource.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmllist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmetaobject.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcomponent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlerror.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qjsvalue.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QList \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qevent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qkeysequence.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfile.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qaccessible.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qeventloop.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tsppathgraphview.o ../TspEvo/tsppathgraphview.cpp
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
@@ -1004,6 +1311,9 @@ moc_tspevosolverviewmodel.o: moc_tspevosolverviewmodel.cpp
 
 moc_tspevofitnesshistorydatamodel.o: moc_tspevofitnesshistorydatamodel.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tspevofitnesshistorydatamodel.o moc_tspevofitnesshistorydatamodel.cpp
+
+moc_tsppathgraphview.o: moc_tsppathgraphview.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tsppathgraphview.o moc_tsppathgraphview.cpp
 
 ####### Install
 

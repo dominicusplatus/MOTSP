@@ -4,7 +4,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     Model/tspevosolverviewmodel.cpp \
-    Model/tspevofitnesshistorydatamodel.cpp
+    Model/tspevofitnesshistorydatamodel.cpp \
+    tsppathgraphview.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,7 +20,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     tspevosolverviewmodel.h \
     Model/tspevosolverviewmodel.h \
-    Model/tspevofitnesshistorydatamodel.h
+    Model/tspevofitnesshistorydatamodel.h \
+    tsppathgraphview.h
 
 DISTFILES +=
 
