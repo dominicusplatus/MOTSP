@@ -3,6 +3,7 @@
 //![0]
 TspPathGraphView::TspPathGraphView(QQuickItem *parent): QQuickPaintedItem(parent)
 {
+    return;
     QLinearGradient gradient(QPointF(50, -20), QPointF(80, 20));
        gradient.setColorAt(0.0, Qt::red);
        gradient.setColorAt(1.0, Qt::green);
@@ -31,6 +32,8 @@ void TspPathGraphView::setGraph(const Route &r)
 //![1]
 void TspPathGraphView::paint(QPainter *painter)
 {
+    return;
+
     QColor color = QColor("#439911");
     QPen pen(color, 2);
     painter->setPen(pen);
@@ -52,7 +55,8 @@ void TspPathGraphView::paint(QPainter *painter)
 
        textFont.setPointSize(16);
 
-       painter->fillRect(event->rect(), background);
+      // painter->fillRect(event->rect(), background);
+
        painter->save();
        painter->setBrush(circleBrush);
        painter->setPen(GraphPen);
@@ -61,48 +65,29 @@ void TspPathGraphView::paint(QPainter *painter)
       // int verts = data->AdjacencyMatrix.size();
     //   vector<vector<int> > RevertedAdjMatrix;
 
+       //int verts = Graph::vectCoord.size();
+        int verts = 0;
+
        if ( verts > 0)
        {
            QVector<QPoint> vertPos;
            int frameWidth = 400, frameHeight = 400;
-            int verts = 0;
+
            //draw verticles
            int vertX = 0 , vertY = 0;
            int vertNo = 0;
-           painter->setPen(VerticleDescPen);
-           for (vertNo = 0; vertNo < verts; vertNo++)
-           {
-               //draw point in a circle
-               vertX = StartX + (Radius * cos(CurrentAngle));
-               vertY = StartY + (Radius * sin(CurrentAngle));
-               QPoint point(vertX,vertY);
-               vertPos.append(point);
-               painter->drawText( point, QString::number(vertNo) );
-               CurrentAngle += PointDistanceAngle;
-           }
 
            //draw graph
            QPoint from, to;
            painter->setPen(GraphPen);
-           for (vertNo = 0; vertNo < verts; vertNo++)
+           for (vertNo = 0; vertNo < verts/2; vertNo++)
            {
-               int adjInc = 0;
-               for (adjInc = 0; adjInc < verts; adjInc++)
-               {
-                   int val = data->AdjacencyMatrix[vertNo][adjInc];
-                   if ( (adjInc != vertNo) //dont draw verticle loop
-                                &&
-                        (val== 1)
-
-                        )
-                   {
-                       from = vertPos[vertNo];
-                       to = vertPos[adjInc];
-                       painter->drawLine(from, to);
-                   }
-               }
-           }
-
-
+            //  std::pair <double, double> coordsFrom = Graph::getCityCoords(m_route[vertNo*2]);
+            //   std::pair <double, double> coordsTo = Graph::getCityCoords(m_route[vertNo*2+1]);
+               //from = Graph::vectCoord[adjInc].first;
+               //to = Graph::vectCoord[adjInc].second;
+               painter->drawLine(from, to);
+}           }
 }
+
 //![1]

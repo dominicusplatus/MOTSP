@@ -1,0 +1,2 @@
+/usr/bin/ar cq ../lib/libltsp.a  CMakeFiles/ltsp.dir/city_swap.cpp.o CMakeFiles/ltsp.dir/edge_xover.cpp.o CMakeFiles/ltsp.dir/graph.cpp.o CMakeFiles/ltsp.dir/order_xover.cpp.o CMakeFiles/ltsp.dir/part_route_eval.cpp.o CMakeFiles/ltsp.dir/partial_mapped_xover.cpp.o CMakeFiles/ltsp.dir/route_eval.cpp.o CMakeFiles/ltsp.dir/route_init.cpp.o CMakeFiles/ltsp.dir/route_valid.cpp.o
+/usr/bin/ranlib ../lib/libltsp.a

@@ -10,11 +10,10 @@ TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableMo
  //   historyModel = new TspEvoFitnessHistoryDataModel(parent);
    // m_historyModel.bindToModel(m_data);
        m_populationsize = 25;
-
        m_columnCount = 2;
        m_rowCount = m_populationsize;
 
-      // Solve();
+       Solve();
 }
 
 
@@ -24,7 +23,7 @@ void TspEvoSolverViewModel::Solve()
 
     int popSize = (int)m_populationsize;
 
-    Graph :: load ("/home/dominicus/Documents/TSP/benchs/ali535.tsp") ; // Instance
+    Graph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
 
     RouteInit init ; // Sol. Random Init.
 

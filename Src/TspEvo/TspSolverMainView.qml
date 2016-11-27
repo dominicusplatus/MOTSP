@@ -9,20 +9,14 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls 2.0
 import QtDataVisualization 1.0
 import QtCharts 2.1
-
-
 import com.tspevo.data 1.0
-
-
-
 
 Rectangle {
     id: mainView
     width: 800
     height: 600
 
-     property TspEvoSolverViewModel solverModel : TspEvoSolverViewModel{}
-
+    property TspEvoSolverViewModel solverModel : TspEvoSolverViewModel{}
 
     Data {
         id: data
@@ -53,11 +47,6 @@ Rectangle {
                     height : parent.height *0.5
                     color: "#164268"
 
-                    TspPathGraphView {
-                            id: graph1
-                            anchors.centerIn: parent
-                            width: 100; height: 100
-                        }
 
                 }
 
@@ -66,24 +55,12 @@ Rectangle {
                     height : parent.height *0.5
                     color: "#854268"
 
-                    TspPathGraphView {
-                            id: graph12
-                            anchors.centerIn: parent
-                            width: 100; height: 100
-                        }
-
                 }
 
                 Rectangle {
                     width: parent.width *0.5
                     height : parent.height *0.5
                     color: "#264268"
-
-                    TspPathGraphView {
-                            id: graph123
-                            anchors.centerIn: parent
-                            width: 100; height: 100
-                        }
 
                 }
 
@@ -92,11 +69,6 @@ Rectangle {
                     height : parent.height *0.5
                     color: "#185268"
 
-                    TspPathGraphView {
-                            id: graph1234
-                            anchors.centerIn: parent
-                            width: 100; height: 100
-                        }
                 }
 
             }

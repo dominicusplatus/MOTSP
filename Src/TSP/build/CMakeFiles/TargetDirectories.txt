@@ -1,0 +1,3 @@
+/home/dominicus/Documents/INF/paretoevo/Src/TSP/build/src/CMakeFiles/install.dir
+/home/dominicus/Documents/INF/paretoevo/Src/TSP/build/src/CMakeFiles/ltsp.dir
+/home/dominicus/Documents/INF/paretoevo/Src/TSP/build/application/CMakeFiles/tsp.dir

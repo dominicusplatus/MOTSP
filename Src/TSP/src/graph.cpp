@@ -45,6 +45,7 @@ namespace Graph {
   static std :: vector <std :: pair <double, double> > vectCoord ; // Coordinates
   
   static std :: vector <std :: vector <unsigned> > dist ; // Distances Mat.
+  static std :: vector <double>  costs; // Costs Mat.
 
   unsigned size () {
     
@@ -66,6 +67,7 @@ namespace Graph {
 	double distY = vectCoord [i].second - vectCoord [j].second ;
 	dist [i] [j] = dist [j] [i] = (unsigned) (sqrt ((float) (distX * distX + distY * distY)) + 0.5) ;
       }
+
   }
 
   void load (const char * __fileName) {
@@ -80,10 +82,14 @@ namespace Graph {
       
       f >> num_vert ;
       vectCoord.resize (num_vert) ;
+	costs.resize(num_vert);
 
       for (unsigned i = 0 ; i < num_vert ; i ++)	
-	f >> vectCoord [i].first >> vectCoord [i].second ;
-                  
+	{
+ 		std::pair <double, double>  vectCoordTmp;
+		f >> vectCoord [i].first >> vectCoord [i].second >> vectCoordTmp.first;
+		costs[i] = vectCoordTmp.first;
+ 	}                 
       f.close () ;
       
       computeDistances () ;
@@ -99,6 +105,17 @@ namespace Graph {
     
     return dist [__from] [__to] ;
   }
+
+ float cost(unsigned __from, unsigned __to) {
+    
+    return dist [__from] [__to] ;
+  }
+
+ std::pair <double, double> getCityCoords(unsigned city)
+{
+	return vectCoord[city];
+}
+
 }
 
 

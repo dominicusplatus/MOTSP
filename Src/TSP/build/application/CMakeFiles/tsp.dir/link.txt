@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/tsp.dir/tsp.cpp.o  -o ../tsp -rdynamic -Wl,-Bstatic -leo -leoutils -lcma -les -lga -lmoeo ../lib/libltsp.a -Wl,-Bdynamic 
