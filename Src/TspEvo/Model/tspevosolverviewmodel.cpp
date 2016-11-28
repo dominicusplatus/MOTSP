@@ -11,6 +11,8 @@ TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableMo
    // m_historyModel.bindToModel(m_data);
        m_populationsize = 25;
        m_columnCount = 2;
+       m_generations = 50;
+       m_mutationProb = 0.02;
        m_rowCount = m_populationsize;
 
        Solve();
@@ -36,8 +38,7 @@ void TspEvoSolverViewModel::Solve()
 
     //std :: cout << "[From] " << pop.best_element () << std :: endl ;
 
-    eoGenContinue <Route> cont(popSize) ; /* Continuator (A fixed number of
-                       100 iterations */
+    eoGenContinue <Route> cont(m_generations) ; /* Continuator (A fixed number of  100 iterations */
 
     eoStochTournamentSelect <Route> select_one ; // Selector
 
@@ -48,7 +49,7 @@ void TspEvoSolverViewModel::Solve()
 
     CitySwap mut ; // City Swap Mutator
 
-    eoSGATransform <Route> transform (cross, 1, mut, 0.01) ;
+    eoSGATransform <Route> transform (cross, 1, mut, m_mutationProb) ;
 
     eoElitism <Route> merge (1) ; // Use of Elistism
 
@@ -128,6 +129,9 @@ void TspEvoSolverViewModel::Solve()
 
        QModelIndex indexA = this->index(0, 0, QModelIndex());
        QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
+
+       UpdateDataRange();
+
       // QModelIndex iend = QModelIndex(0,0);
        emit dataChanged(indexA, indexC);
 
@@ -152,18 +156,55 @@ void TspEvoSolverViewModel::setPopulation(eoPop <Route> a)
    // m_population = a;
 }
 
-
-
 void TspEvoSolverViewModel::setpopulationSize(qreal a)
 {
-m_populationsize = a;
+    m_populationsize = a;
 }
 
+void TspEvoSolverViewModel::setGenerations(qreal a)
+{
+    m_generations = a;
+}
 
+void TspEvoSolverViewModel::setMutationProb(qreal a)
+{
+    m_mutationProb = a;
+}
+
+void TspEvoSolverViewModel::setfitnessRangeStart(qreal a)
+{
+    m_fitnessRangeStart = a;
+}
+
+void TspEvoSolverViewModel::setfitnessRangeEnd(qreal a)
+{
+    m_fitnessRangeEnd = a;
+}
 
  qreal TspEvoSolverViewModel::getpopulationSize()
  {
         return m_populationsize;
+ }
+
+ qreal TspEvoSolverViewModel::getGenerations()
+ {
+        return m_generations;
+ }
+
+ qreal TspEvoSolverViewModel::getMutationProb()
+ {
+        return m_mutationProb;
+ }
+
+ qreal TspEvoSolverViewModel::getfitnessRangeStart()
+ {
+        return m_fitnessRangeStart;
+ }
+
+
+ qreal TspEvoSolverViewModel::getfitnessRangeEnd()
+ {
+        return m_fitnessRangeEnd;
  }
 
  TspEvoFitnessHistoryDataModel* TspEvoSolverViewModel::gethistoryModel()
@@ -187,6 +228,31 @@ m_populationsize = a;
      Q_UNUSED(parent)
      return m_columnCount;
  }
+
+void TspEvoSolverViewModel::UpdateDataRange()
+{
+    int pinc =0;
+    for(pinc =0; pinc < m_populationsize; pinc++){
+         QVector<qreal> val = m_data[pinc];
+         qreal len = val[1];
+         if( (int)m_fitnessRangeEnd==0){
+            m_fitnessRangeEnd = len;
+            m_fitnessRangeStart = len;
+            emit fitnessRangeStartChanged(m_fitnessRangeStart);
+            emit fitnessRangeEndChanged(m_fitnessRangeEnd);
+         }
+
+         if(len<m_fitnessRangeStart){
+             m_fitnessRangeStart =len;
+             emit fitnessRangeStartChanged(m_fitnessRangeStart);
+         }
+         if( (len > m_fitnessRangeEnd)){
+             m_fitnessRangeEnd = len;
+             emit fitnessRangeEndChanged(m_fitnessRangeEnd);
+         }
+
+    }
+}
 
  QVariant TspEvoSolverViewModel::headerData(int section, Qt::Orientation orientation, int role) const
  {

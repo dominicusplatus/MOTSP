@@ -84,9 +84,25 @@ Rectangle {
                 anchors.fill: parent
                 antialiasing: true
 
+                ValueAxis {
+                        id: xAxisPopSize
+                        min: 0
+                        max: solverModel.populationSize
+                    }
+
+                ValueAxis {
+                        id: yAxisFitness
+                        min: solverModel.fitnessRangeStart
+                        max: solverModel.fitnessRangeEnd
+                    }
+
+
                 LineSeries {
                     id: lineone
                     name: "Generation fitness"
+                    axisX: xAxisPopSize
+                    axisY: yAxisFitness
+
                 }
                 VXYModelMapper{
                     model: solverModel    //TspEvoSolverViewModel{}  //model   //TspEvoFitnessHistoryDataModel{}
@@ -174,6 +190,34 @@ Rectangle {
                               solverModel.setpopulationSize(spinboxPopSize.value);
                     }
                 }
+
+
+                Label {
+                    text: "Generations"
+                }
+
+                SpinBox {
+                    id: spinboxGenerations
+                    value : solverModel.generations
+                    onValueChanged : {
+                              solverModel.setGenerations(spinboxGenerations.value);
+                    }
+                }
+
+
+                Label {
+                    text: "Mutation probability"
+                }
+
+                SpinBox {
+                    id: spinboxMutProb
+                    value : solverModel.mutationProb
+                    onValueChanged : {
+                              solverModel.setMutationProb(spinboxMutProb.value);
+                    }
+                }
+
+
 
                 NewButton {
                    // Layout.width: parent.width / 2

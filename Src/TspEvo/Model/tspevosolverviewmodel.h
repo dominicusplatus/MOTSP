@@ -34,6 +34,10 @@ class TspEvoSolverViewModel : public QAbstractTableModel
     Q_OBJECT
     Q_PROPERTY(eoPop <Route> population READ getPopulation WRITE setPopulation NOTIFY populationChanged)
     Q_PROPERTY(qreal populationSize READ getpopulationSize WRITE setpopulationSize NOTIFY populationSizeChanged)
+    Q_PROPERTY(qreal generations READ getGenerations WRITE setGenerations NOTIFY generationsChanged)
+    Q_PROPERTY(qreal mutationProb READ getMutationProb WRITE setMutationProb NOTIFY mutationProbChanged)
+    Q_PROPERTY(qreal fitnessRangeStart READ getfitnessRangeStart WRITE setfitnessRangeStart NOTIFY fitnessRangeStartChanged)
+    Q_PROPERTY(qreal fitnessRangeEnd READ getfitnessRangeEnd WRITE setfitnessRangeEnd NOTIFY fitnessRangeEndChanged)
     Q_PROPERTY(TspEvoFitnessHistoryDataModel* historyModel READ gethistoryModel WRITE sethistoryModel NOTIFY historyModelChanged)
 public:
     explicit TspEvoSolverViewModel(QObject *parent = 0);
@@ -41,7 +45,12 @@ public:
     bool IsSolving();
     eoPop <Route> getPopulation();
     qreal getpopulationSize();
+    qreal getGenerations();
+    qreal getMutationProb();
+    qreal getfitnessRangeStart();
+    qreal getfitnessRangeEnd();
     TspEvoFitnessHistoryDataModel* gethistoryModel();
+    void UpdateDataRange();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -54,19 +63,30 @@ public:
     void addMapping(QString color, QRect area);
     void clearMapping() { m_mapping.clear(); }
 
-
 signals:
     int DidSolveGeneration();
     void populationChanged(const eoPop <Route> &newPopulation);
     void populationSizeChanged(const qreal &newSize);
+    void generationsChanged(const qreal &newSize);
+    void mutationProbChanged(const qreal &newSize);
+    void fitnessRangeStartChanged(const qreal &newSize);
+    void fitnessRangeEndChanged(const qreal &newSize);
     void historyModelChanged(const TspEvoFitnessHistoryDataModel* &newSize);
 public slots:
     void setPopulation(eoPop <Route> a);
     void setpopulationSize(qreal a);
+    void setGenerations(qreal a);
+    void setMutationProb(qreal a);
+    void setfitnessRangeStart(qreal a);
+    void setfitnessRangeEnd(qreal a);
     void sethistoryModel(TspEvoFitnessHistoryDataModel* a);
 private:
     eoPop <Route> m_population;
     qreal m_populationsize;
+    qreal m_generations;
+    qreal m_mutationProb;
+    qreal m_fitnessRangeStart;
+    qreal m_fitnessRangeEnd;
     TspEvoFitnessHistoryDataModel m_historyModel;
 
     QList<QVector<qreal>> m_data;
