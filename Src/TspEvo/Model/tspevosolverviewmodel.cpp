@@ -5,6 +5,26 @@
 #include <QtCore/QRect>
 #include <QtGui/QColor>
 
+#include <moeo>
+#include <es/eoRealInitBounded.h>
+
+#include "MOEO/polynomialmutation.h"
+#include "MOEO/sbxcrossover.h"
+#include "MOEO/tspobjectivevector.h"
+#include "MOEO/tspdroute.h"
+
+// how to initialize the population
+#include <do/make_pop.h>
+// the stopping criterion
+#include <do/make_continue_moeo.h>
+// outputs (stats, population dumps, ...)
+#include <do/make_checkpoint_moeo.h>
+// evolution engine (selection and replacement)
+#include <do/make_ea_moeo.h>
+// simple call to the algo
+#include <do/make_run.h>
+
+
 TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableModel(parent)
 {
  //   historyModel = new TspEvoFitnessHistoryDataModel(parent);
@@ -30,6 +50,8 @@ void TspEvoSolverViewModel::Solve()
     RouteInit init ; // Sol. Random Init.
 
     RouteEval full_eval ; // Full Evaluator
+
+
 
     eoPop <Route> pop(popSize, init) ; // Population
     m_population = pop;
@@ -139,6 +161,68 @@ void TspEvoSolverViewModel::Solve()
        //emit historyModelChanged(m_historyModel);
 
   //  emit DidSolveGeneration(1);
+}
+
+void TspEvoSolverViewModel::SolveMOEO()
+{
+
+       // eoParser parser();  // for user-parameter reading
+        eoState state;                // to keep all things allocated
+
+        unsigned int MAX_GEN = 100; //parser.createParam((unsigned int)(100), "maxGen", "Maximum number of generations",'G',"Param").value();
+        double P_CROSS = 1.0;   //parser.createParam(1.0, "pCross", "Crossover probability",'C',"Param").value();
+        double EXT_P_MUT = 1.0; //parser.createParam(1.0, "extPMut", "External Mutation probability",'E',"Param").value();
+        double INT_P_MUT = 0.083;   //parser.createParam(0.083, "intPMut", "Internal Mutation probability",'I',"Param").value();
+        unsigned int VEC_SIZE = (unsigned int)(30); //parser.createParam((unsigned int)(30), "vecSize", "Genotype Size",'V',"Param").value();
+        unsigned int NB_OBJ= (unsigned int)(2); //parser.createParam((unsigned int)(2), "nbObj", "Number of Objective",'N',"Param").value();
+       // std::string OUTPUT_FILE = parser.createParam(std::string("dtlz_ibea"), "outputFile", "Path of the output file",'o',"Output").value();
+        unsigned int EVAL = (unsigned int)(1);  //parser.createParam((unsigned int)(1), "eval", "Number of the ZDT evaluation fonction",'F',"Param").value();
+        unsigned int NB_EVAL =(unsigned int)(0);    /// parser.createParam((unsigned int)(0), "nbEval", "Number of evaluation before Stop",'P',"Param").value();
+        unsigned int TIME = (unsigned int)(0);  //parser.createParam((unsigned int)(0), "time", "Time(seconds) before Stop",'T',"Param").value();
+
+
+        /*** the representation-dependent things ***/
+         std::vector <bool> bObjectives(2);
+         for (unsigned int i=0; i<2 ; i++)
+             bObjectives[i]=true;
+
+         moeoObjectiveVectorTraits::setup(2,bObjectives);
+         // The fitness evaluation
+         eoEvalFunc <TspDRoute> * eval;
+         // the genotype (through a genotype initializer)
+         eoRealVectorBounds bounds(VEC_SIZE, 0.0, 50.0);
+         eoRealInitBounded <TspDRoute> init (bounds);
+         // the variation operators
+         SBXCrossover < TspDRoute > xover(bounds, 15);
+
+         PolynomialMutation < TspDRoute > mutation (bounds, INT_P_MUT, 20);
+
+         /*** the representation-independent things ***/
+         // initialization of the population
+         // stopping criteria
+
+         eoGenContinue<TspDRoute> term(MAX_GEN);
+         eoEvalFuncCounter<TspDRoute> evalFunc(*eval);
+         eoCheckPoint<TspDRoute>* checkpoint;
+
+         if (TIME > 0)
+             checkpoint = new eoCheckPoint<TspDRoute>(*(new eoTimeContinue<TspDRoute>(TIME)));
+         else if (NB_EVAL > 0)
+             checkpoint = new eoCheckPoint<TspDRoute>(*(new eoEvalContinue<TspDRoute>(evalFunc, NB_EVAL)));
+
+         checkpoint->add(term);
+
+         // algorithm
+         eoSGAGenOp < TspDRoute > op(xover, P_CROSS, mutation, EXT_P_MUT);
+         moeoAdditiveEpsilonBinaryMetric < TSPObjectiveVector > metric;
+         moeoIBEA<TspDRoute> algo(*checkpoint, evalFunc ,op, metric);
+
+       //  eoPop<TspDRoute>& pop = do_make_pop(parser, state, init);
+         eoPop <TspDRoute> pop(m_populationsize, init) ; // Population
+         do_run(algo, pop);
+         moeoUnboundedArchive<TspDRoute> finalArchive;
+         finalArchive(pop);
+
 }
 
 bool TspEvoSolverViewModel::IsSolving()

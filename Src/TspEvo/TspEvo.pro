@@ -21,7 +21,12 @@ HEADERS += \
     tspevosolverviewmodel.h \
     Model/tspevosolverviewmodel.h \
     Model/tspevofitnesshistorydatamodel.h \
-    tsppathgraphview.h
+    tsppathgraphview.h \
+    MOEO/sbxcrossover.h \
+    MOEO/polynomialmutation.h \
+    MOEO/zdtobjectivevector.h \
+    MOEO/tspobjectivevector.h \
+    MOEO/tspdroute.h
 
 DISTFILES +=
 

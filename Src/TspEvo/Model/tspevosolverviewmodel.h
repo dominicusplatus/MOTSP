@@ -42,6 +42,7 @@ class TspEvoSolverViewModel : public QAbstractTableModel
 public:
     explicit TspEvoSolverViewModel(QObject *parent = 0);
     Q_INVOKABLE void Solve();
+    Q_INVOKABLE void SolveMOEO();
     bool IsSolving();
     eoPop <Route> getPopulation();
     qreal getpopulationSize();

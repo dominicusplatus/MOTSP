@@ -219,7 +219,12 @@ DIST          = /home/dominicus/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../TspEvo/TspEvo.pro tspevosolverviewmodel.h \
 		../TspEvo/Model/tspevosolverviewmodel.h \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
-		../TspEvo/tsppathgraphview.h ../TspEvo/main.cpp \
+		../TspEvo/tsppathgraphview.h \
+		../TspEvo/MOEO/sbxcrossover.h \
+		../TspEvo/MOEO/polynomialmutation.h \
+		../TspEvo/MOEO/zdtobjectivevector.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/MOEO/tspdroute.h ../TspEvo/main.cpp \
 		../TspEvo/Model/tspevosolverviewmodel.cpp \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp \
 		../TspEvo/tsppathgraphview.cpp
@@ -574,7 +579,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../TspEvo/qml.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h $(DISTDIR)/
+	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h ../TspEvo/MOEO/sbxcrossover.h ../TspEvo/MOEO/polynomialmutation.h ../TspEvo/MOEO/zdtobjectivevector.h ../TspEvo/MOEO/tspobjectivevector.h ../TspEvo/MOEO/tspdroute.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/tsppathgraphview.cpp $(DISTDIR)/
 
 
@@ -1021,7 +1026,20 @@ main.o: ../TspEvo/main.cpp /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QGuiAppli
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/QQmlContext \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcontext.h
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcontext.h \
+		../TspEvo/tsppathgraphview.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QPainter \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpainter.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qtextoption.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpen.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/QQuickPaintedItem \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qquickpainteditem.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qquickitem.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qtquickglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcomponent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QList \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qaccessible.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../TspEvo/main.cpp
 
 tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevosolverviewmodel.h \
@@ -1101,7 +1119,11 @@ tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Mod
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
+		../TspEvo/MOEO/polynomialmutation.h \
+		../TspEvo/MOEO/sbxcrossover.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/MOEO/tspdroute.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspevosolverviewmodel.o ../TspEvo/Model/tspevosolverviewmodel.cpp
 
 tspevofitnesshistorydatamodel.o: ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.h \
