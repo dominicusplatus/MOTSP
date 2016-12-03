@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QQmlDebuggingEnabler enabler;
     qmlRegisterType<TspEvoSolverViewModel>("com.tspevo.data", 1, 0, "TspEvoSolverViewModel");
     qmlRegisterType<TspEvoFitnessHistoryDataModel>("com.tspevo.data", 1, 0, "TspEvoFitnessHistoryDataModel");
-//    qmlRegisterType<TspPathGraphView>("com.tspevo.data", 1, 0, "TspPathGraphView");
+    qmlRegisterType<TspPathGraphView>("com.tspevo.data", 1, 0, "TspPathGraphView");
 
     TspEvoSolverViewModel model;
     QQmlContext *ctxt = engine.rootContext();

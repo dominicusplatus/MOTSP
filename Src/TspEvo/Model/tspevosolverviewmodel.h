@@ -26,6 +26,7 @@
 // include package checkpointing
 #include <utils/checkpointing>
 
+#include "tspdataservice.h"
 #include "tspevofitnesshistorydatamodel.h"
 
 
@@ -43,6 +44,7 @@ public:
     explicit TspEvoSolverViewModel(QObject *parent = 0);
     Q_INVOKABLE void Solve();
     Q_INVOKABLE void SolveMOEO();
+   Q_INVOKABLE  int GetResult();
     bool IsSolving();
     eoPop <Route> getPopulation();
     qreal getpopulationSize();
@@ -52,6 +54,7 @@ public:
     qreal getfitnessRangeEnd();
     TspEvoFitnessHistoryDataModel* gethistoryModel();
     void UpdateDataRange();
+
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -82,7 +85,7 @@ public slots:
     void setfitnessRangeEnd(qreal a);
     void sethistoryModel(TspEvoFitnessHistoryDataModel* a);
 private:
-    eoPop <Route> m_population;
+   // eoPop <Route> m_population;
     qreal m_populationsize;
     qreal m_generations;
     qreal m_mutationProb;

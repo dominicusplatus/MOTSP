@@ -24,6 +24,8 @@
 // simple call to the algo
 #include <do/make_run.h>
 
+#include "tspeval.h"
+
 
 TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -54,7 +56,7 @@ void TspEvoSolverViewModel::Solve()
 
 
     eoPop <Route> pop(popSize, init) ; // Population
-    m_population = pop;
+    TspRoutes = pop;
 
     apply <Route> (full_eval, pop) ;
 
@@ -147,7 +149,7 @@ void TspEvoSolverViewModel::Solve()
 
      endResetModel();
 
-     emit populationChanged(m_population);
+     emit populationChanged(TspRoutes);
 
        QModelIndex indexA = this->index(0, 0, QModelIndex());
        QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
@@ -163,6 +165,74 @@ void TspEvoSolverViewModel::Solve()
   //  emit DidSolveGeneration(1);
 }
 
+int TspEvoSolverViewModel::GetResult()
+{
+    int result = 0;
+
+    //get first route
+    if(TspRoutes.size() < 1){
+        return 0;
+    }
+
+    int verts = Graph::size();
+
+    int routes = TspRoutes.size();
+    int rinc = 0;
+    for(rinc=0; rinc<routes;rinc++){
+        Route rt = TspRoutes[rinc];
+
+        if(rt.size() < verts){
+
+        }
+
+        QPoint from, to, prev;
+
+           //store first point
+        std::pair <double, double> coordsFrom = Graph::getCityCoords(rt[0]);
+        prev.setX(coordsFrom.first*3);
+        prev.setY(coordsFrom.second*3);
+
+        int sumLen = 0;
+        int vertNo = 0;
+        for (vertNo = 1; vertNo < verts; vertNo++)
+        {
+            to = QPoint();
+            std::pair <double, double> coordsTo = Graph::getCityCoords(rt[vertNo]);
+            to.setX( coordsTo.first *3);
+            to.setY(coordsTo.second *3);
+
+            int diffX = abs( to.x() - prev.x());
+            int diffY = abs( to.y() - prev.y());
+
+              sumLen += (int) ( sqrt( pow(diffX,2) + pow(diffY,2) ) );
+
+            prev = to;
+        }
+
+
+        if(result ==0){
+            result = sumLen;
+            if(BestTspRoutes.size() == 0){
+                BestTspRoutes.push_back(rt);
+            }else{
+                BestTspRoutes[0] = rt;
+            }
+        }
+        else if (sumLen < result){
+            result = sumLen;
+            if(BestTspRoutes.size() == 0){
+                BestTspRoutes.push_back(rt);
+            }else{
+                BestTspRoutes[0] = rt;
+            }
+        }
+
+
+    }
+
+        return  result;
+}
+
 void TspEvoSolverViewModel::SolveMOEO()
 {
 
@@ -176,8 +246,8 @@ void TspEvoSolverViewModel::SolveMOEO()
         unsigned int VEC_SIZE = (unsigned int)(30); //parser.createParam((unsigned int)(30), "vecSize", "Genotype Size",'V',"Param").value();
         unsigned int NB_OBJ= (unsigned int)(2); //parser.createParam((unsigned int)(2), "nbObj", "Number of Objective",'N',"Param").value();
        // std::string OUTPUT_FILE = parser.createParam(std::string("dtlz_ibea"), "outputFile", "Path of the output file",'o',"Output").value();
-        unsigned int EVAL = (unsigned int)(1);  //parser.createParam((unsigned int)(1), "eval", "Number of the ZDT evaluation fonction",'F',"Param").value();
-        unsigned int NB_EVAL =(unsigned int)(0);    /// parser.createParam((unsigned int)(0), "nbEval", "Number of evaluation before Stop",'P',"Param").value();
+        unsigned int EVAL = (unsigned int)(100);  //parser.createParam((unsigned int)(1), "eval", "Number of the ZDT evaluation fonction",'F',"Param").value();
+        unsigned int NB_EVAL =(unsigned int)(50);    /// parser.createParam((unsigned int)(0), "nbEval", "Number of evaluation before Stop",'P',"Param").value();
         unsigned int TIME = (unsigned int)(0);  //parser.createParam((unsigned int)(0), "time", "Time(seconds) before Stop",'T',"Param").value();
 
 
@@ -187,8 +257,11 @@ void TspEvoSolverViewModel::SolveMOEO()
              bObjectives[i]=true;
 
          moeoObjectiveVectorTraits::setup(2,bObjectives);
+
          // The fitness evaluation
          eoEvalFunc <TspDRoute> * eval;
+         eval = new TspBaseEval;
+         
          // the genotype (through a genotype initializer)
          eoRealVectorBounds bounds(VEC_SIZE, 0.0, 50.0);
          eoRealInitBounded <TspDRoute> init (bounds);
@@ -205,9 +278,9 @@ void TspEvoSolverViewModel::SolveMOEO()
          eoEvalFuncCounter<TspDRoute> evalFunc(*eval);
          eoCheckPoint<TspDRoute>* checkpoint;
 
-         if (TIME > 0)
-             checkpoint = new eoCheckPoint<TspDRoute>(*(new eoTimeContinue<TspDRoute>(TIME)));
-         else if (NB_EVAL > 0)
+      //  if (TIME > 0)
+      //       checkpoint = new eoCheckPoint<TspDRoute>(*(new eoTimeContinue<TspDRoute>(TIME)));
+       //  else if (NB_EVAL > 0)
              checkpoint = new eoCheckPoint<TspDRoute>(*(new eoEvalContinue<TspDRoute>(evalFunc, NB_EVAL)));
 
          checkpoint->add(term);
@@ -215,10 +288,14 @@ void TspEvoSolverViewModel::SolveMOEO()
          // algorithm
          eoSGAGenOp < TspDRoute > op(xover, P_CROSS, mutation, EXT_P_MUT);
          moeoAdditiveEpsilonBinaryMetric < TSPObjectiveVector > metric;
+
          moeoIBEA<TspDRoute> algo(*checkpoint, evalFunc ,op, metric);
+        //   moeoIBEA<TspDRoute> algo( evalFunc ,op, metric);
 
        //  eoPop<TspDRoute>& pop = do_make_pop(parser, state, init);
          eoPop <TspDRoute> pop(m_populationsize, init) ; // Population
+
+
          do_run(algo, pop);
          moeoUnboundedArchive<TspDRoute> finalArchive;
          finalArchive(pop);
@@ -232,7 +309,7 @@ bool TspEvoSolverViewModel::IsSolving()
 
 eoPop <Route> TspEvoSolverViewModel::getPopulation()
 {
-    return m_population;
+    return TspRoutes;
 }
 
 void TspEvoSolverViewModel::setPopulation(eoPop <Route> a)

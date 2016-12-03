@@ -43,9 +43,20 @@ Rectangle {
                 height : parent.height
 
                 Rectangle {
-                    width: parent.width *0.5
-                    height : parent.height *0.5
-                    color: "#164268"
+                    width: parent.width *0.8
+                    height : parent.height *0.8
+                    color: "white"
+
+                    TspPathGraphView
+                    {
+                        id: graphView1
+                        width: parent.width
+                        height : parent.height
+                        fillColor: "transparent"
+                        //population: solverModel.population
+
+
+                    }
 
 
                 }
@@ -226,7 +237,40 @@ Rectangle {
                     //Layout.fillHeight: true
                    // Layout.fillWidth: true
                     text: "Solve"
-                    onClicked: solverModel.Solve(); // call a helper function to keep button itself simpler
+                    onClicked: {
+                         solverModel.Solve(); // call a helper function to keep button itself simpler
+                        graphView1.update();
+                    }
+
+                }
+
+
+                NewButton {
+                    width : parent.width * 0.6
+                    height : parent.height * 0.2
+                    text: "Solve Until Fit"
+                    onClicked: {
+                        var result = 0;
+                        do{
+                            solverModel.Solve();
+                            graphView1.update();
+                            result = solverModel.GetResult();
+                        }while(result > 1400);
+
+
+                    }
+
+                }
+
+                NewButton {
+                    width : parent.width * 0.6
+                    height : parent.height * 0.2
+                    text: "Solve Multi objective"
+                    onClicked: {
+                        solverModel.SolveMOEO();
+
+                    }
+
                 }
 
 

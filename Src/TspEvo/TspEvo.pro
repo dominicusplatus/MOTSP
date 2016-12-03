@@ -5,7 +5,10 @@ CONFIG += c++11
 SOURCES += main.cpp \
     Model/tspevosolverviewmodel.cpp \
     Model/tspevofitnesshistorydatamodel.cpp \
-    tsppathgraphview.cpp
+    tsppathgraphview.cpp \
+    tspdataservice.cpp \
+    tspeval.cpp \
+    tspxoverdual.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,7 +29,10 @@ HEADERS += \
     MOEO/polynomialmutation.h \
     MOEO/zdtobjectivevector.h \
     MOEO/tspobjectivevector.h \
-    MOEO/tspdroute.h
+    MOEO/tspdroute.h \
+    tspdataservice.h \
+    tspeval.h \
+    MOEO/tspxoverdual.h
 
 DISTFILES +=
 
