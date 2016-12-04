@@ -33,7 +33,7 @@
 class TspEvoSolverViewModel : public QAbstractTableModel
 {
     Q_OBJECT
-    Q_PROPERTY(eoPop <Route> population READ getPopulation WRITE setPopulation NOTIFY populationChanged)
+    Q_PROPERTY(eoPop <TspDRoute> population READ getPopulation WRITE setPopulation NOTIFY populationChanged)
     Q_PROPERTY(qreal populationSize READ getpopulationSize WRITE setpopulationSize NOTIFY populationSizeChanged)
     Q_PROPERTY(qreal generations READ getGenerations WRITE setGenerations NOTIFY generationsChanged)
     Q_PROPERTY(qreal mutationProb READ getMutationProb WRITE setMutationProb NOTIFY mutationProbChanged)
@@ -45,10 +45,8 @@ public:
     Q_INVOKABLE void Solve();
     Q_INVOKABLE void SolveMOEO();
     Q_INVOKABLE  int GetResult();
-  //  Q_INVOKABLE void SolveTspDual();
-   Q_INVOKABLE  void SolveMultiObjectivePermutized();
     bool IsSolving();
-    eoPop <Route> getPopulation();
+    eoPop <TspDRoute> getPopulation();
     qreal getpopulationSize();
     qreal getGenerations();
     qreal getMutationProb();
@@ -71,7 +69,7 @@ public:
 
 signals:
     int DidSolveGeneration();
-    void populationChanged(const eoPop <Route> &newPopulation);
+    void populationChanged(const eoPop <TspDRoute> &newPopulation);
     void populationSizeChanged(const qreal &newSize);
     void generationsChanged(const qreal &newSize);
     void mutationProbChanged(const qreal &newSize);
@@ -79,7 +77,7 @@ signals:
     void fitnessRangeEndChanged(const qreal &newSize);
     void historyModelChanged(const TspEvoFitnessHistoryDataModel* &newSize);
 public slots:
-    void setPopulation(eoPop <Route> a);
+    void setPopulation(eoPop <TspDRoute> a);
     void setpopulationSize(qreal a);
     void setGenerations(qreal a);
     void setMutationProb(qreal a);

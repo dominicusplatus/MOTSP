@@ -29,18 +29,20 @@
 #include <eoInit.h>
 #include <utils/rnd_generators.h>  // for shuffle method
 
-extern std::vector<eoPop <Route>> TspRouteHistory;
-extern  eoPop <Route> TspRoutes;
-extern  QList<Route> BestTspRoutes;
+#include "MOEO/tspdroute.h"
+
+extern std::vector<eoPop <TspDRoute>> TspRouteHistory;
+extern  eoPop <TspDRoute> TspRoutes;
+extern  QList<TspDRoute> BestTspRoutes;
 
 
 class TspDataService    //: public QObject
 {
 
 public:
-     static eoPop <Route> getPopulation();
+     static eoPop <TspDRoute> getPopulation();
     //   explicit TspDataService(QObject *parent = 0);
-    static eoPop <Route> m_population;
+    static eoPop <TspDRoute> m_population;
 
 private:
 

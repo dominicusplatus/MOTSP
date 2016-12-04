@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_TspEvoSolverViewModel_t {
-    QByteArrayData data[33];
-    char stringdata0[530];
+    QByteArrayData data[32];
+    char stringdata0[504];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,39 +33,38 @@ QT_MOC_LITERAL(0, 0, 21), // "TspEvoSolverViewModel"
 QT_MOC_LITERAL(1, 22, 18), // "DidSolveGeneration"
 QT_MOC_LITERAL(2, 41, 0), // ""
 QT_MOC_LITERAL(3, 42, 17), // "populationChanged"
-QT_MOC_LITERAL(4, 60, 12), // "eoPop<Route>"
-QT_MOC_LITERAL(5, 73, 13), // "newPopulation"
-QT_MOC_LITERAL(6, 87, 21), // "populationSizeChanged"
-QT_MOC_LITERAL(7, 109, 7), // "newSize"
-QT_MOC_LITERAL(8, 117, 18), // "generationsChanged"
-QT_MOC_LITERAL(9, 136, 19), // "mutationProbChanged"
-QT_MOC_LITERAL(10, 156, 24), // "fitnessRangeStartChanged"
-QT_MOC_LITERAL(11, 181, 22), // "fitnessRangeEndChanged"
-QT_MOC_LITERAL(12, 204, 19), // "historyModelChanged"
-QT_MOC_LITERAL(13, 224, 30), // "TspEvoFitnessHistoryDataModel*"
-QT_MOC_LITERAL(14, 255, 13), // "setPopulation"
-QT_MOC_LITERAL(15, 269, 1), // "a"
-QT_MOC_LITERAL(16, 271, 17), // "setpopulationSize"
-QT_MOC_LITERAL(17, 289, 14), // "setGenerations"
-QT_MOC_LITERAL(18, 304, 15), // "setMutationProb"
-QT_MOC_LITERAL(19, 320, 20), // "setfitnessRangeStart"
-QT_MOC_LITERAL(20, 341, 18), // "setfitnessRangeEnd"
-QT_MOC_LITERAL(21, 360, 15), // "sethistoryModel"
-QT_MOC_LITERAL(22, 376, 5), // "Solve"
-QT_MOC_LITERAL(23, 382, 9), // "SolveMOEO"
-QT_MOC_LITERAL(24, 392, 9), // "GetResult"
-QT_MOC_LITERAL(25, 402, 29), // "SolveMultiObjectivePermutized"
-QT_MOC_LITERAL(26, 432, 10), // "population"
-QT_MOC_LITERAL(27, 443, 14), // "populationSize"
-QT_MOC_LITERAL(28, 458, 11), // "generations"
-QT_MOC_LITERAL(29, 470, 12), // "mutationProb"
-QT_MOC_LITERAL(30, 483, 17), // "fitnessRangeStart"
-QT_MOC_LITERAL(31, 501, 15), // "fitnessRangeEnd"
-QT_MOC_LITERAL(32, 517, 12) // "historyModel"
+QT_MOC_LITERAL(4, 60, 16), // "eoPop<TspDRoute>"
+QT_MOC_LITERAL(5, 77, 13), // "newPopulation"
+QT_MOC_LITERAL(6, 91, 21), // "populationSizeChanged"
+QT_MOC_LITERAL(7, 113, 7), // "newSize"
+QT_MOC_LITERAL(8, 121, 18), // "generationsChanged"
+QT_MOC_LITERAL(9, 140, 19), // "mutationProbChanged"
+QT_MOC_LITERAL(10, 160, 24), // "fitnessRangeStartChanged"
+QT_MOC_LITERAL(11, 185, 22), // "fitnessRangeEndChanged"
+QT_MOC_LITERAL(12, 208, 19), // "historyModelChanged"
+QT_MOC_LITERAL(13, 228, 30), // "TspEvoFitnessHistoryDataModel*"
+QT_MOC_LITERAL(14, 259, 13), // "setPopulation"
+QT_MOC_LITERAL(15, 273, 1), // "a"
+QT_MOC_LITERAL(16, 275, 17), // "setpopulationSize"
+QT_MOC_LITERAL(17, 293, 14), // "setGenerations"
+QT_MOC_LITERAL(18, 308, 15), // "setMutationProb"
+QT_MOC_LITERAL(19, 324, 20), // "setfitnessRangeStart"
+QT_MOC_LITERAL(20, 345, 18), // "setfitnessRangeEnd"
+QT_MOC_LITERAL(21, 364, 15), // "sethistoryModel"
+QT_MOC_LITERAL(22, 380, 5), // "Solve"
+QT_MOC_LITERAL(23, 386, 9), // "SolveMOEO"
+QT_MOC_LITERAL(24, 396, 9), // "GetResult"
+QT_MOC_LITERAL(25, 406, 10), // "population"
+QT_MOC_LITERAL(26, 417, 14), // "populationSize"
+QT_MOC_LITERAL(27, 432, 11), // "generations"
+QT_MOC_LITERAL(28, 444, 12), // "mutationProb"
+QT_MOC_LITERAL(29, 457, 17), // "fitnessRangeStart"
+QT_MOC_LITERAL(30, 475, 15), // "fitnessRangeEnd"
+QT_MOC_LITERAL(31, 491, 12) // "historyModel"
 
     },
     "TspEvoSolverViewModel\0DidSolveGeneration\0"
-    "\0populationChanged\0eoPop<Route>\0"
+    "\0populationChanged\0eoPop<TspDRoute>\0"
     "newPopulation\0populationSizeChanged\0"
     "newSize\0generationsChanged\0"
     "mutationProbChanged\0fitnessRangeStartChanged\0"
@@ -75,9 +74,8 @@ QT_MOC_LITERAL(32, 517, 12) // "historyModel"
     "setGenerations\0setMutationProb\0"
     "setfitnessRangeStart\0setfitnessRangeEnd\0"
     "sethistoryModel\0Solve\0SolveMOEO\0"
-    "GetResult\0SolveMultiObjectivePermutized\0"
-    "population\0populationSize\0generations\0"
-    "mutationProb\0fitnessRangeStart\0"
+    "GetResult\0population\0populationSize\0"
+    "generations\0mutationProb\0fitnessRangeStart\0"
     "fitnessRangeEnd\0historyModel"
 };
 #undef QT_MOC_LITERAL
@@ -88,37 +86,36 @@ static const uint qt_meta_data_TspEvoSolverViewModel[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
-       7,  156, // properties
+      18,   14, // methods
+       7,  150, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,  109,    2, 0x06 /* Public */,
-       3,    1,  110,    2, 0x06 /* Public */,
-       6,    1,  113,    2, 0x06 /* Public */,
-       8,    1,  116,    2, 0x06 /* Public */,
-       9,    1,  119,    2, 0x06 /* Public */,
-      10,    1,  122,    2, 0x06 /* Public */,
-      11,    1,  125,    2, 0x06 /* Public */,
-      12,    1,  128,    2, 0x06 /* Public */,
+       1,    0,  104,    2, 0x06 /* Public */,
+       3,    1,  105,    2, 0x06 /* Public */,
+       6,    1,  108,    2, 0x06 /* Public */,
+       8,    1,  111,    2, 0x06 /* Public */,
+       9,    1,  114,    2, 0x06 /* Public */,
+      10,    1,  117,    2, 0x06 /* Public */,
+      11,    1,  120,    2, 0x06 /* Public */,
+      12,    1,  123,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    1,  131,    2, 0x0a /* Public */,
-      16,    1,  134,    2, 0x0a /* Public */,
-      17,    1,  137,    2, 0x0a /* Public */,
-      18,    1,  140,    2, 0x0a /* Public */,
-      19,    1,  143,    2, 0x0a /* Public */,
-      20,    1,  146,    2, 0x0a /* Public */,
-      21,    1,  149,    2, 0x0a /* Public */,
+      14,    1,  126,    2, 0x0a /* Public */,
+      16,    1,  129,    2, 0x0a /* Public */,
+      17,    1,  132,    2, 0x0a /* Public */,
+      18,    1,  135,    2, 0x0a /* Public */,
+      19,    1,  138,    2, 0x0a /* Public */,
+      20,    1,  141,    2, 0x0a /* Public */,
+      21,    1,  144,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      22,    0,  152,    2, 0x02 /* Public */,
-      23,    0,  153,    2, 0x02 /* Public */,
-      24,    0,  154,    2, 0x02 /* Public */,
-      25,    0,  155,    2, 0x02 /* Public */,
+      22,    0,  147,    2, 0x02 /* Public */,
+      23,    0,  148,    2, 0x02 /* Public */,
+      24,    0,  149,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Int,
@@ -143,16 +140,15 @@ static const uint qt_meta_data_TspEvoSolverViewModel[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Int,
-    QMetaType::Void,
 
  // properties: name, type, flags
-      26, 0x80000000 | 4, 0x0049510b,
-      27, QMetaType::QReal, 0x00495003,
+      25, 0x80000000 | 4, 0x0049510b,
+      26, QMetaType::QReal, 0x00495003,
+      27, QMetaType::QReal, 0x00495103,
       28, QMetaType::QReal, 0x00495103,
-      29, QMetaType::QReal, 0x00495103,
+      29, QMetaType::QReal, 0x00495003,
       30, QMetaType::QReal, 0x00495003,
-      31, QMetaType::QReal, 0x00495003,
-      32, 0x80000000 | 13, 0x0049500b,
+      31, 0x80000000 | 13, 0x0049500b,
 
  // properties: notify_signal_id
        1,
@@ -174,14 +170,14 @@ void TspEvoSolverViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         switch (_id) {
         case 0: { int _r = _t->DidSolveGeneration();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
-        case 1: _t->populationChanged((*reinterpret_cast< const eoPop<Route>(*)>(_a[1]))); break;
+        case 1: _t->populationChanged((*reinterpret_cast< const eoPop<TspDRoute>(*)>(_a[1]))); break;
         case 2: _t->populationSizeChanged((*reinterpret_cast< const qreal(*)>(_a[1]))); break;
         case 3: _t->generationsChanged((*reinterpret_cast< const qreal(*)>(_a[1]))); break;
         case 4: _t->mutationProbChanged((*reinterpret_cast< const qreal(*)>(_a[1]))); break;
         case 5: _t->fitnessRangeStartChanged((*reinterpret_cast< const qreal(*)>(_a[1]))); break;
         case 6: _t->fitnessRangeEndChanged((*reinterpret_cast< const qreal(*)>(_a[1]))); break;
         case 7: _t->historyModelChanged((*reinterpret_cast< const TspEvoFitnessHistoryDataModel*(*)>(_a[1]))); break;
-        case 8: _t->setPopulation((*reinterpret_cast< eoPop<Route>(*)>(_a[1]))); break;
+        case 8: _t->setPopulation((*reinterpret_cast< eoPop<TspDRoute>(*)>(_a[1]))); break;
         case 9: _t->setpopulationSize((*reinterpret_cast< qreal(*)>(_a[1]))); break;
         case 10: _t->setGenerations((*reinterpret_cast< qreal(*)>(_a[1]))); break;
         case 11: _t->setMutationProb((*reinterpret_cast< qreal(*)>(_a[1]))); break;
@@ -192,7 +188,6 @@ void TspEvoSolverViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         case 16: _t->SolveMOEO(); break;
         case 17: { int _r = _t->GetResult();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
-        case 18: _t->SolveMultiObjectivePermutized(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -224,7 +219,7 @@ void TspEvoSolverViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c
             }
         }
         {
-            typedef void (TspEvoSolverViewModel::*_t)(const eoPop<Route> & );
+            typedef void (TspEvoSolverViewModel::*_t)(const eoPop<TspDRoute> & );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&TspEvoSolverViewModel::populationChanged)) {
                 *result = 1;
                 return;
@@ -286,7 +281,7 @@ void TspEvoSolverViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< eoPop<Route>*>(_v) = _t->getPopulation(); break;
+        case 0: *reinterpret_cast< eoPop<TspDRoute>*>(_v) = _t->getPopulation(); break;
         case 1: *reinterpret_cast< qreal*>(_v) = _t->getpopulationSize(); break;
         case 2: *reinterpret_cast< qreal*>(_v) = _t->getGenerations(); break;
         case 3: *reinterpret_cast< qreal*>(_v) = _t->getMutationProb(); break;
@@ -300,7 +295,7 @@ void TspEvoSolverViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         Q_UNUSED(_t)
         void *_v = _a[0];
         switch (_id) {
-        case 0: _t->setPopulation(*reinterpret_cast< eoPop<Route>*>(_v)); break;
+        case 0: _t->setPopulation(*reinterpret_cast< eoPop<TspDRoute>*>(_v)); break;
         case 1: _t->setpopulationSize(*reinterpret_cast< qreal*>(_v)); break;
         case 2: _t->setGenerations(*reinterpret_cast< qreal*>(_v)); break;
         case 3: _t->setMutationProb(*reinterpret_cast< qreal*>(_v)); break;
@@ -339,13 +334,13 @@ int TspEvoSolverViewModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 19)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 18;
     }
 #ifndef QT_NO_PROPERTIES
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
@@ -377,7 +372,7 @@ int TspEvoSolverViewModel::DidSolveGeneration()
 }
 
 // SIGNAL 1
-void TspEvoSolverViewModel::populationChanged(const eoPop<Route> & _t1)
+void TspEvoSolverViewModel::populationChanged(const eoPop<TspDRoute> & _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);

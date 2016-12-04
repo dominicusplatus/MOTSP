@@ -238,7 +238,8 @@ Rectangle {
                    // Layout.fillWidth: true
                     text: "Solve"
                     onClicked: {
-                         solverModel.Solve(); // call a helper function to keep button itself simpler
+                        solverModel.SolveMOEO();
+                        solverModel.GetResult();
                         graphView1.update();
                     }
 
@@ -252,7 +253,7 @@ Rectangle {
                     onClicked: {
                         var result = 0;
                         do{
-                            solverModel.Solve();
+                             solverModel.SolveMOEO();
                             graphView1.update();
                             result = solverModel.GetResult();
                         }while(result > 1400);
@@ -262,16 +263,6 @@ Rectangle {
 
                 }
 
-                NewButton {
-                    width : parent.width * 0.6
-                    height : parent.height * 0.2
-                    text: "Solve Multi objective"
-                    onClicked: {
-                        solverModel.SolveMOEO();
-
-                    }
-
-                }
 
 
             }

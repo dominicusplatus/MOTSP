@@ -14,7 +14,7 @@ TspDataService::TspDataService()    //(QObject *parent) : QObject(parent)
 */
 
 
-  std::vector<eoPop <Route>> TspRouteHistory;
-  eoPop <Route> TspRoutes;
-  QList<Route> BestTspRoutes;
+  std::vector<eoPop <TspDRoute>> TspRouteHistory;
+  eoPop <TspDRoute> TspRoutes;
+  QList<TspDRoute> BestTspRoutes;
 

@@ -46,171 +46,43 @@ TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableMo
 
 void TspEvoSolverViewModel::Solve()
 {
-  //   ea (m_population);
-
+    /*
     int popSize = (int)m_populationsize;
-
     Graph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
-
     RouteInit init ; // Sol. Random Init.
-
     RouteEval full_eval ; // Full Evaluator
-
-
-
-    eoPop <Route> pop(popSize, init) ; // Population
+    eoPop <TspDRoute> pop(popSize, init) ; // Population
     TspRoutes = pop;
 
-    apply <Route> (full_eval, pop) ;
-
-    //std :: cout << "[From] " << pop.best_element () << std :: endl ;
-
-    eoGenContinue <Route> cont(m_generations) ; /* Continuator (A fixed number of  100 iterations */
-
-    eoStochTournamentSelect <Route> select_one ; // Selector
-
-    eoSelectNumber <Route> select (select_one, popSize) ;
+    apply <TspDRoute> (full_eval, pop) ;
+    eoGenContinue <TspDRoute> cont(m_generations) ;
+    eoStochTournamentSelect <TspDRoute> select_one ; // Selector
+    eoSelectNumber <TspDRoute> select (select_one, popSize) ;
 
     //  OrderXover cross ; // Order Crossover
     PartialMappedXover cross ;
-
     CitySwap mut ; // City Swap Mutator
-
-    eoSGATransform <Route> transform (cross, 1, mut, m_mutationProb) ;
-
-    eoElitism <Route> merge (1) ; // Use of Elistism
-
-    eoStochTournamentTruncate <Route> reduce (0.7) ; // Stoch. Replacement
-
-    eoEasyEA <Route> ea (cont, full_eval, select, transform, merge, reduce) ;
-
-    /// LIVE UPDATE
-
-    eoCheckPoint<Route> checkpoint(cont);
+    eoSGATransform <TspDRoute> transform (cross, 1, mut, m_mutationProb) ;
+    eoElitism <TspDRoute> merge (1) ; // Use of Elistism
+    eoStochTournamentTruncate <TspDRoute> reduce (0.7) ; // Stoch. Replacement
+    eoEasyEA <TspDRoute> ea (cont, full_eval, select, transform, merge, reduce) ;
+    eoCheckPoint<TspDRoute> checkpoint(cont);
 
     // Create a counter parameter
     eoValueParam<unsigned> generationCounter(0, "Generation");
-
-    // Create an incrementor (wich is an eoUpdater). Note that the
-    // Parameter's value is passed by reference, so every time the incrementer increments,
-    // the data in generationCounter will change.
     eoIncrementor<unsigned> increment(generationCounter.value());
 
-    eoAverageStat<Route>  stat;
-
-    // Add it to the checkpoint, this will result in the counter being incremented every generation
+    eoAverageStat<TspDRoute>  stat;
     checkpoint.add(stat);
-
-    // the monitor can monitor parameters such as the generationCounter
-    //stat.add(generationCounter);
-
-    // Second moment stats: average and stdev
-    eoSecondMomentStats<Route> stats;
-
-    // Add it to the checkpoint to get it called at the appropriate time
-    checkpoint.add(stats);
-
-    // save state every third generation
-    //eoCountedStateSaver stateSaver1(3, state, "generation");
-
-    // And add the two savers to the checkpoint
-  //  checkpoint.add(stateSaver1);
-
-     ea (pop);
-
-       std :: cout << "[To] " << pop.best_element () << std :: endl ;
-
-       //beginRemoveRows();
-        beginResetModel();
-
-       m_data.clear();
-      // endRemoveRows();
-
-       //copy the results
-       int pint = 0;
-       // QVector<qreal>  vals;
-
-
-       for(pint = 0; pint<pop.size();pint++){
-           QVector<qreal> val;
-           // val[0]= (qreal)pop[pint].EO.fitness();   //[0];
-
-           val.push_back((qreal)pint);
-           val.push_back((qreal)pop[pint].fitness());
-           //val.push_back((qreal)pop[pint].fitness());
-          // val.push_back((qreal)pop[pint].fitness());
-           m_data.push_back(val);
-
-
-          // val[1]= (qreal)pop[pint][1];
-       //     m_data.push_back(val);
-       }
-
-       //m_data.push_back(vals);
-
-     m_rowCount = m_populationsize;
-
-     endResetModel();
-
-     emit populationChanged(TspRoutes);
-
-       QModelIndex indexA = this->index(0, 0, QModelIndex());
-       QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
-
-       UpdateDataRange();
-
-      // QModelIndex iend = QModelIndex(0,0);
-       emit dataChanged(indexA, indexC);
-
-
-       //emit historyModelChanged(m_historyModel);
-
-  //  emit DidSolveGeneration(1);
-}
-
-
-
-void TspEvoSolverViewModel::SolveMultiObjectivePermutized()
-{
-
-    int popSize = (int)m_populationsize;
-
-    Graph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
-    RouteInit init ; // Sol. Random Init.
-    RouteEval full_eval ; // Full Evaluator
-
-    eoPop <Route> pop(popSize, init) ; // Population
-    TspRoutes = pop;
-
-    apply <Route> (full_eval, pop) ;
-    eoGenContinue <Route> cont(m_generations) ; /* Continuator (A fixed number of  100 iterations */
-    eoStochTournamentSelect <Route> select_one ; // Selector
-    eoSelectNumber <Route> select (select_one, popSize) ;
-
-    PartialMappedXover cross ;
-    CitySwap mut ; // City Swap Mutator
-    eoSGATransform <Route> transform (cross, 1, mut, m_mutationProb) ;
-    eoElitism <Route> merge (1) ; // Use of Elistism
-    eoStochTournamentTruncate <Route> reduce (0.7) ; // Stoch. Replacement
-
-
-    eoEasyEA <Route> ea (cont, full_eval, select, transform, merge, reduce) ;
-
-    eoCheckPoint<Route> checkpoint(cont);
-    eoValueParam<unsigned> generationCounter(0, "Generation");
-    eoIncrementor<unsigned> increment(generationCounter.value());
-    eoAverageStat<Route>  stat;
-    checkpoint.add(stat);
-    eoSecondMomentStats<Route> stats;
-
+    eoSecondMomentStats<TspDRoute> stats;
     checkpoint.add(stats);
      ea (pop);
 
        std :: cout << "[To] " << pop.best_element () << std :: endl ;
-
         beginResetModel();
        m_data.clear();
        int pint = 0;
+
        for(pint = 0; pint<pop.size();pint++){
            QVector<qreal> val;
            val.push_back((qreal)pint);
@@ -221,13 +93,16 @@ void TspEvoSolverViewModel::SolveMultiObjectivePermutized()
      m_rowCount = m_populationsize;
 
      endResetModel();
+
      emit populationChanged(TspRoutes);
+
        QModelIndex indexA = this->index(0, 0, QModelIndex());
        QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
-
        UpdateDataRange();
        emit dataChanged(indexA, indexC);
+*/
 }
+
 
 
 int TspEvoSolverViewModel::GetResult()
@@ -239,12 +114,12 @@ int TspEvoSolverViewModel::GetResult()
         return 0;
     }
 
-    int verts = Graph::size();
+    int verts = MORouteGraph::size();
 
     int routes = TspRoutes.size();
     int rinc = 0;
     for(rinc=0; rinc<routes;rinc++){
-        Route rt = TspRoutes[rinc];
+        TspDRoute rt = TspRoutes[rinc];
 
         if(rt.size() < verts){
 
@@ -253,7 +128,7 @@ int TspEvoSolverViewModel::GetResult()
         QPoint from, to, prev;
 
            //store first point
-        std::pair <double, double> coordsFrom = Graph::getCityCoords(rt[0]);
+        std::pair <double, double> coordsFrom = MORouteGraph::getCityCoords(rt[0]);
         prev.setX(coordsFrom.first*3);
         prev.setY(coordsFrom.second*3);
 
@@ -262,7 +137,7 @@ int TspEvoSolverViewModel::GetResult()
         for (vertNo = 1; vertNo < verts; vertNo++)
         {
             to = QPoint();
-            std::pair <double, double> coordsTo = Graph::getCityCoords(rt[vertNo]);
+            std::pair <double, double> coordsTo = MORouteGraph::getCityCoords(rt[vertNo]);
             to.setX( coordsTo.first *3);
             to.setY(coordsTo.second *3);
 
@@ -302,17 +177,14 @@ void TspEvoSolverViewModel::SolveMOEO()
 {
         int popSize = (int)m_populationsize;
         MORouteGraph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
-
-       // eoParser parser();  // for user-parameter reading
         eoState state;                // to keep all things allocated
 
-        unsigned int MAX_GEN = 100; //parser.createParam((unsigned int)(100), "maxGen", "Maximum number of generations",'G',"Param").value();
+        unsigned int MAX_GEN = m_generations; //parser.createParam((unsigned int)(100), "maxGen", "Maximum number of generations",'G',"Param").value();
         double P_CROSS = 1.0;   //parser.createParam(1.0, "pCross", "Crossover probability",'C',"Param").value();
         double EXT_P_MUT = 1.0; //parser.createParam(1.0, "extPMut", "External Mutation probability",'E',"Param").value();
         double INT_P_MUT = 0.083;   //parser.createParam(0.083, "intPMut", "Internal Mutation probability",'I',"Param").value();
         unsigned int VEC_SIZE = (unsigned int)(30); //parser.createParam((unsigned int)(30), "vecSize", "Genotype Size",'V',"Param").value();
         unsigned int NB_OBJ= (unsigned int)(2); //parser.createParam((unsigned int)(2), "nbObj", "Number of Objective",'N',"Param").value();
-       // std::string OUTPUT_FILE = parser.createParam(std::string("dtlz_ibea"), "outputFile", "Path of the output file",'o',"Output").value();
         unsigned int EVAL = (unsigned int)(100);  //parser.createParam((unsigned int)(1), "eval", "Number of the ZDT evaluation fonction",'F',"Param").value();
         unsigned int NB_EVAL =(unsigned int)(50);    /// parser.createParam((unsigned int)(0), "nbEval", "Number of evaluation before Stop",'P',"Param").value();
         unsigned int TIME = (unsigned int)(0);  //parser.createParam((unsigned int)(0), "time", "Time(seconds) before Stop",'T',"Param").value();
@@ -365,6 +237,8 @@ void TspEvoSolverViewModel::SolveMOEO()
          do_run(algo, pop);
          moeoUnboundedArchive<TspDRoute> finalArchive;
          finalArchive(pop);
+
+         TspRoutes = pop;
 
          //now update the UI
           beginResetModel();
@@ -430,12 +304,12 @@ bool TspEvoSolverViewModel::IsSolving()
     return false;
 }
 
-eoPop <Route> TspEvoSolverViewModel::getPopulation()
+eoPop <TspDRoute> TspEvoSolverViewModel::getPopulation()
 {
     return TspRoutes;
 }
 
-void TspEvoSolverViewModel::setPopulation(eoPop <Route> a)
+void TspEvoSolverViewModel::setPopulation(eoPop <TspDRoute> a)
 {
    // m_population = a;
 }

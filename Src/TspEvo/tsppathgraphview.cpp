@@ -1,4 +1,5 @@
 #include "tsppathgraphview.h"
+#include "moroutegraph.h"
 
 //![0]
 TspPathGraphView::TspPathGraphView(QQuickItem *parent): QQuickPaintedItem(parent)
@@ -46,10 +47,7 @@ void TspPathGraphView::redraw()
       m_painter->setBrush(circleBrush);
       m_painter->setPen(GraphPen);
       m_painter->setFont(textFont);
-
-     // int verts = data->AdjacencyMatrix.size();
-   //   vector<vector<int> > RevertedAdjMatrix;
-      int verts = Graph::size();
+      int verts = MORouteGraph::size();
 
       if ( verts > 0)
       {
@@ -67,7 +65,7 @@ void TspPathGraphView::redraw()
           if(TspRoutes.size() < 1){
               return;
           }
-          Route rt = TspRoutes[0];
+          TspDRoute rt = TspRoutes[0];
 
           if(rt.size() < verts){
               return;
@@ -78,8 +76,8 @@ void TspPathGraphView::redraw()
           m_painter->setPen(GraphPen);
           for (vertNo = 0; vertNo < verts/2; vertNo++)
           {
-             std::pair <double, double> coordsFrom = Graph::getCityCoords(rt[vertNo*2]);
-             std::pair <double, double> coordsTo = Graph::getCityCoords(rt[vertNo*2+1]);
+             std::pair <double, double> coordsFrom = MORouteGraph::getCityCoords(rt[vertNo*2]);
+             std::pair <double, double> coordsTo = MORouteGraph::getCityCoords(rt[vertNo*2+1]);
               from.setX( coordsFrom.first);
               from.setY(coordsFrom.second);
               to.setX( coordsTo.first);
@@ -117,7 +115,7 @@ void TspPathGraphView::paint(QPainter *painter)
        painter->setBrush(circleBrush);
        painter->setPen(GraphPen);
        painter->setFont(textFont);
-       int verts = Graph::size();
+       int verts = MORouteGraph::size();
 
        if ( verts > 0)
        {
@@ -135,7 +133,7 @@ void TspPathGraphView::paint(QPainter *painter)
            if(BestTspRoutes.size() < 1){
                return;
            }
-           Route rt = BestTspRoutes[0];
+           TspDRoute rt = BestTspRoutes[0];
 
            if(rt.size() < verts){
                return;
@@ -149,7 +147,7 @@ void TspPathGraphView::paint(QPainter *painter)
 
 
               //store first point
-           std::pair <double, double> coordsFrom = Graph::getCityCoords(rt[0]);
+           std::pair <double, double> coordsFrom = MORouteGraph::getCityCoords(rt[0]);
            prev.setX(coordsFrom.first*3);
            prev.setY(coordsFrom.second*3);
            painter->drawText( to, QString::number(0) );
@@ -159,11 +157,7 @@ void TspPathGraphView::paint(QPainter *painter)
            for (vertNo = 1; vertNo < verts; vertNo++)
            {
                to = QPoint();
-             // std::pair <double, double> coordsFrom = Graph::getCityCoords(rt[vertNo*2]);
-              std::pair <double, double> coordsTo = Graph::getCityCoords(rt[vertNo]);
-              // from.setX( coordsFrom.first *3);
-             //  from.setY(coordsFrom.second *3);
-             //    painter->drawText( from, QString::number(vertNo) );
+              std::pair <double, double> coordsTo = MORouteGraph::getCityCoords(rt[vertNo]);
                to.setX( coordsTo.first *3);
                to.setY(coordsTo.second *3);
                painter->drawText( to, QString::number(vertNo) );
