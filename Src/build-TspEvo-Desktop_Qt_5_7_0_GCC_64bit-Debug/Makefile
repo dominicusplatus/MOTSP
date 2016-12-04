@@ -53,7 +53,15 @@ SOURCES       = ../TspEvo/main.cpp \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp \
 		../TspEvo/tsppathgraphview.cpp \
 		../TspEvo/tspdataservice.cpp \
-		../TspEvo/tspeval.cpp qrc_qml.cpp \
+		../TspEvo/tspeval.cpp \
+		../TspEvo/tspxoverdual.cpp \
+		../TspEvo/tspdrouteinit.cpp \
+		../TspEvo/moroutegraph.cpp \
+		../TspEvo/tspdoualobjectivevectortraits.cpp \
+		../TspEvo/tspdualeval.cpp \
+		../TspEvo/tspdualcrossover.cpp \
+		../TspEvo/tspdualmutation.cpp \
+		../TspEvo/tspdroute.cpp qrc_qml.cpp \
 		moc_tspevosolverviewmodel.cpp \
 		moc_tspevofitnesshistorydatamodel.cpp \
 		moc_tsppathgraphview.cpp
@@ -63,6 +71,14 @@ OBJECTS       = main.o \
 		tsppathgraphview.o \
 		tspdataservice.o \
 		tspeval.o \
+		tspxoverdual.o \
+		tspdrouteinit.o \
+		moroutegraph.o \
+		tspdoualobjectivevectortraits.o \
+		tspdualeval.o \
+		tspdualcrossover.o \
+		tspdualmutation.o \
+		tspdroute.o \
 		qrc_qml.o \
 		moc_tspevosolverviewmodel.o \
 		moc_tspevofitnesshistorydatamodel.o \
@@ -230,12 +246,29 @@ DIST          = /home/dominicus/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../TspEvo/MOEO/tspobjectivevector.h \
 		../TspEvo/MOEO/tspdroute.h \
 		../TspEvo/tspdataservice.h \
-		../TspEvo/tspeval.h ../TspEvo/main.cpp \
+		../TspEvo/tspeval.h \
+		../TspEvo/MOEO/tspxoverdual.h \
+		../TspEvo/tspdrouteinit.h \
+		../TspEvo/moroutegraph.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/tspdualdatahelpers.h \
+		../TspEvo/tspdualeval.h \
+		../TspEvo/tspdualcrossover.h \
+		../TspEvo/tspdualmutation.h \
+		../TspEvo/tspvertex.h ../TspEvo/main.cpp \
 		../TspEvo/Model/tspevosolverviewmodel.cpp \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp \
 		../TspEvo/tsppathgraphview.cpp \
 		../TspEvo/tspdataservice.cpp \
-		../TspEvo/tspeval.cpp
+		../TspEvo/tspeval.cpp \
+		../TspEvo/tspxoverdual.cpp \
+		../TspEvo/tspdrouteinit.cpp \
+		../TspEvo/moroutegraph.cpp \
+		../TspEvo/tspdoualobjectivevectortraits.cpp \
+		../TspEvo/tspdualeval.cpp \
+		../TspEvo/tspdualcrossover.cpp \
+		../TspEvo/tspdualmutation.cpp \
+		../TspEvo/tspdroute.cpp
 QMAKE_TARGET  = TspEvo
 DESTDIR       = 
 TARGET        = TspEvo
@@ -587,8 +620,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../TspEvo/qml.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h ../TspEvo/MOEO/sbxcrossover.h ../TspEvo/MOEO/polynomialmutation.h ../TspEvo/MOEO/zdtobjectivevector.h ../TspEvo/MOEO/tspobjectivevector.h ../TspEvo/MOEO/tspdroute.h ../TspEvo/tspdataservice.h ../TspEvo/tspeval.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/tsppathgraphview.cpp ../TspEvo/tspdataservice.cpp ../TspEvo/tspeval.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h ../TspEvo/MOEO/sbxcrossover.h ../TspEvo/MOEO/polynomialmutation.h ../TspEvo/MOEO/zdtobjectivevector.h ../TspEvo/MOEO/tspobjectivevector.h ../TspEvo/MOEO/tspdroute.h ../TspEvo/tspdataservice.h ../TspEvo/tspeval.h ../TspEvo/MOEO/tspxoverdual.h ../TspEvo/tspdrouteinit.h ../TspEvo/moroutegraph.h ../TspEvo/tspdualobjectivevectortraits.h ../TspEvo/tspdualdatahelpers.h ../TspEvo/tspdualeval.h ../TspEvo/tspdualcrossover.h ../TspEvo/tspdualmutation.h ../TspEvo/tspvertex.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/tsppathgraphview.cpp ../TspEvo/tspdataservice.cpp ../TspEvo/tspeval.cpp ../TspEvo/tspxoverdual.cpp ../TspEvo/tspdrouteinit.cpp ../TspEvo/moroutegraph.cpp ../TspEvo/tspdoualobjectivevectortraits.cpp ../TspEvo/tspdualeval.cpp ../TspEvo/tspdualcrossover.cpp ../TspEvo/tspdualmutation.cpp ../TspEvo/tspdroute.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1140,7 +1173,15 @@ tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Mod
 		../TspEvo/MOEO/polynomialmutation.h \
 		../TspEvo/MOEO/sbxcrossover.h \
 		../TspEvo/MOEO/tspobjectivevector.h \
-		../TspEvo/MOEO/tspdroute.h
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/tspeval.h \
+		../TspEvo/MOEO/tspxoverdual.h \
+		../TspEvo/tspdrouteinit.h \
+		../TspEvo/tspdualdatahelpers.h \
+		../TspEvo/tspdualeval.h \
+		../TspEvo/tspdualmutation.h \
+		../TspEvo/tspdualcrossover.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspevosolverviewmodel.o ../TspEvo/Model/tspevosolverviewmodel.cpp
 
 tspevofitnesshistorydatamodel.o: ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.h \
@@ -1422,8 +1463,52 @@ tspdataservice.o: ../TspEvo/tspdataservice.cpp ../TspEvo/tspdataservice.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdataservice.o ../TspEvo/tspdataservice.cpp
 
-tspeval.o: ../TspEvo/tspeval.cpp 
+tspeval.o: ../TspEvo/tspeval.cpp ../TspEvo/tspeval.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/MOEO/tspdroute.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspeval.o ../TspEvo/tspeval.cpp
+
+tspxoverdual.o: ../TspEvo/tspxoverdual.cpp ../TspEvo/MOEO/tspxoverdual.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspxoverdual.o ../TspEvo/tspxoverdual.cpp
+
+tspdrouteinit.o: ../TspEvo/tspdrouteinit.cpp ../TspEvo/tspdrouteinit.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/moroutegraph.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdrouteinit.o ../TspEvo/tspdrouteinit.cpp
+
+moroutegraph.o: ../TspEvo/moroutegraph.cpp ../TspEvo/moroutegraph.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moroutegraph.o ../TspEvo/moroutegraph.cpp
+
+tspdoualobjectivevectortraits.o: ../TspEvo/tspdoualobjectivevectortraits.cpp ../TspEvo/tspdualobjectivevectortraits.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdoualobjectivevectortraits.o ../TspEvo/tspdoualobjectivevectortraits.cpp
+
+tspdualeval.o: ../TspEvo/tspdualeval.cpp ../TspEvo/tspdualeval.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/moroutegraph.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdualeval.o ../TspEvo/tspdualeval.cpp
+
+tspdualcrossover.o: ../TspEvo/tspdualcrossover.cpp ../TspEvo/tspdualcrossover.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdualcrossover.o ../TspEvo/tspdualcrossover.cpp
+
+tspdualmutation.o: ../TspEvo/tspdualmutation.cpp ../TspEvo/tspdualmutation.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdualmutation.o ../TspEvo/tspdualmutation.cpp
+
+tspdroute.o: ../TspEvo/tspdroute.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdroute.o ../TspEvo/tspdroute.cpp
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp

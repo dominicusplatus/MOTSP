@@ -1,10 +1,10 @@
 #ifndef TSPOBJECTIVEVECTOR_H
 #define TSPOBJECTIVEVECTOR_H
 
-
 #include <moeo>
+#include <core/moeoRealObjectiveVector.h>
+#include <tspdualobjectivevectortraits.h>
 
-/** define ZDT Objective vector as a vector of double*/
-typedef moeoRealObjectiveVector<moeoObjectiveVectorTraits> TSPObjectiveVector;
+typedef moeoRealObjectiveVector<TspDualObjectiveVectorTraits> TSPObjectiveVector;
 
 #endif // TSPOBJECTIVEVECTOR_H

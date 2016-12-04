@@ -8,7 +8,14 @@ SOURCES += main.cpp \
     tsppathgraphview.cpp \
     tspdataservice.cpp \
     tspeval.cpp \
-    tspxoverdual.cpp
+    tspxoverdual.cpp \
+    tspdrouteinit.cpp \
+    moroutegraph.cpp \
+    tspdoualobjectivevectortraits.cpp \
+    tspdualeval.cpp \
+    tspdualcrossover.cpp \
+    tspdualmutation.cpp \
+    tspdroute.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,7 +39,15 @@ HEADERS += \
     MOEO/tspdroute.h \
     tspdataservice.h \
     tspeval.h \
-    MOEO/tspxoverdual.h
+    MOEO/tspxoverdual.h \
+    tspdrouteinit.h \
+    moroutegraph.h \
+    tspdualobjectivevectortraits.h \
+    tspdualdatahelpers.h \
+    tspdualeval.h \
+    tspdualcrossover.h \
+    tspdualmutation.h \
+    tspvertex.h
 
 DISTFILES +=
 

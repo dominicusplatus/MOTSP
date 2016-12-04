@@ -2,12 +2,22 @@
 #define TSPDROUTE_H
 
 #include "MOEO/tspobjectivevector.h"
-/**
- *  Structure of the genotype for ZDT fonctions problem: a vector of double.
- */
-class TspDRoute : public moeoRealVector < TSPObjectiveVector, double, double >
+#include <core/moeoVector.h>
+#include "route.h"
+#include <eoVector.h>
+#include <core/moeoVector.h>
+#include <MOEO/tspobjectivevector.h>
+
+//class TspDRoute : public moeoVector <TSPObjectiveVector,double, double, unsigned>
+class TspDRoute : public moeoVector <TSPObjectiveVector,unsigned, double, unsigned>
 {
+public:
+
+
+private:
+
 
 };
+
 
 #endif // TSPDROUTE_H

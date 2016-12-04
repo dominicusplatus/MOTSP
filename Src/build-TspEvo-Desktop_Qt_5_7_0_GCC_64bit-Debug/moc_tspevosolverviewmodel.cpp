@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_TspEvoSolverViewModel_t {
-    QByteArrayData data[32];
-    char stringdata0[500];
+    QByteArrayData data[33];
+    char stringdata0[530];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -54,13 +54,14 @@ QT_MOC_LITERAL(21, 360, 15), // "sethistoryModel"
 QT_MOC_LITERAL(22, 376, 5), // "Solve"
 QT_MOC_LITERAL(23, 382, 9), // "SolveMOEO"
 QT_MOC_LITERAL(24, 392, 9), // "GetResult"
-QT_MOC_LITERAL(25, 402, 10), // "population"
-QT_MOC_LITERAL(26, 413, 14), // "populationSize"
-QT_MOC_LITERAL(27, 428, 11), // "generations"
-QT_MOC_LITERAL(28, 440, 12), // "mutationProb"
-QT_MOC_LITERAL(29, 453, 17), // "fitnessRangeStart"
-QT_MOC_LITERAL(30, 471, 15), // "fitnessRangeEnd"
-QT_MOC_LITERAL(31, 487, 12) // "historyModel"
+QT_MOC_LITERAL(25, 402, 29), // "SolveMultiObjectivePermutized"
+QT_MOC_LITERAL(26, 432, 10), // "population"
+QT_MOC_LITERAL(27, 443, 14), // "populationSize"
+QT_MOC_LITERAL(28, 458, 11), // "generations"
+QT_MOC_LITERAL(29, 470, 12), // "mutationProb"
+QT_MOC_LITERAL(30, 483, 17), // "fitnessRangeStart"
+QT_MOC_LITERAL(31, 501, 15), // "fitnessRangeEnd"
+QT_MOC_LITERAL(32, 517, 12) // "historyModel"
 
     },
     "TspEvoSolverViewModel\0DidSolveGeneration\0"
@@ -74,8 +75,9 @@ QT_MOC_LITERAL(31, 487, 12) // "historyModel"
     "setGenerations\0setMutationProb\0"
     "setfitnessRangeStart\0setfitnessRangeEnd\0"
     "sethistoryModel\0Solve\0SolveMOEO\0"
-    "GetResult\0population\0populationSize\0"
-    "generations\0mutationProb\0fitnessRangeStart\0"
+    "GetResult\0SolveMultiObjectivePermutized\0"
+    "population\0populationSize\0generations\0"
+    "mutationProb\0fitnessRangeStart\0"
     "fitnessRangeEnd\0historyModel"
 };
 #undef QT_MOC_LITERAL
@@ -86,36 +88,37 @@ static const uint qt_meta_data_TspEvoSolverViewModel[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
-       7,  150, // properties
+      19,   14, // methods
+       7,  156, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,  104,    2, 0x06 /* Public */,
-       3,    1,  105,    2, 0x06 /* Public */,
-       6,    1,  108,    2, 0x06 /* Public */,
-       8,    1,  111,    2, 0x06 /* Public */,
-       9,    1,  114,    2, 0x06 /* Public */,
-      10,    1,  117,    2, 0x06 /* Public */,
-      11,    1,  120,    2, 0x06 /* Public */,
-      12,    1,  123,    2, 0x06 /* Public */,
+       1,    0,  109,    2, 0x06 /* Public */,
+       3,    1,  110,    2, 0x06 /* Public */,
+       6,    1,  113,    2, 0x06 /* Public */,
+       8,    1,  116,    2, 0x06 /* Public */,
+       9,    1,  119,    2, 0x06 /* Public */,
+      10,    1,  122,    2, 0x06 /* Public */,
+      11,    1,  125,    2, 0x06 /* Public */,
+      12,    1,  128,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    1,  126,    2, 0x0a /* Public */,
-      16,    1,  129,    2, 0x0a /* Public */,
-      17,    1,  132,    2, 0x0a /* Public */,
-      18,    1,  135,    2, 0x0a /* Public */,
-      19,    1,  138,    2, 0x0a /* Public */,
-      20,    1,  141,    2, 0x0a /* Public */,
-      21,    1,  144,    2, 0x0a /* Public */,
+      14,    1,  131,    2, 0x0a /* Public */,
+      16,    1,  134,    2, 0x0a /* Public */,
+      17,    1,  137,    2, 0x0a /* Public */,
+      18,    1,  140,    2, 0x0a /* Public */,
+      19,    1,  143,    2, 0x0a /* Public */,
+      20,    1,  146,    2, 0x0a /* Public */,
+      21,    1,  149,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-      22,    0,  147,    2, 0x02 /* Public */,
-      23,    0,  148,    2, 0x02 /* Public */,
-      24,    0,  149,    2, 0x02 /* Public */,
+      22,    0,  152,    2, 0x02 /* Public */,
+      23,    0,  153,    2, 0x02 /* Public */,
+      24,    0,  154,    2, 0x02 /* Public */,
+      25,    0,  155,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Int,
@@ -140,15 +143,16 @@ static const uint qt_meta_data_TspEvoSolverViewModel[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Int,
+    QMetaType::Void,
 
  // properties: name, type, flags
-      25, 0x80000000 | 4, 0x0049510b,
-      26, QMetaType::QReal, 0x00495003,
-      27, QMetaType::QReal, 0x00495103,
+      26, 0x80000000 | 4, 0x0049510b,
+      27, QMetaType::QReal, 0x00495003,
       28, QMetaType::QReal, 0x00495103,
-      29, QMetaType::QReal, 0x00495003,
+      29, QMetaType::QReal, 0x00495103,
       30, QMetaType::QReal, 0x00495003,
-      31, 0x80000000 | 13, 0x0049500b,
+      31, QMetaType::QReal, 0x00495003,
+      32, 0x80000000 | 13, 0x0049500b,
 
  // properties: notify_signal_id
        1,
@@ -188,6 +192,7 @@ void TspEvoSolverViewModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         case 16: _t->SolveMOEO(); break;
         case 17: { int _r = _t->GetResult();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
+        case 18: _t->SolveMultiObjectivePermutized(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -334,13 +339,13 @@ int TspEvoSolverViewModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 19;
     }
 #ifndef QT_NO_PROPERTIES
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty

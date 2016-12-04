@@ -12,17 +12,18 @@
 #include <eoOp.h>
 
 #include "route.h"
+#include "MOEO/tspdroute.h"
 
 /** Partial Mapped Crossover */
-class TspDualXover : public eoQuadOp <Route> {
+class TspDualXover : public eoQuadOp <TspDRoute> {
 
 public :
 
-  bool operator () (Route & __route1, Route & __route2) ;
+  bool operator () (TspDRoute & __route1, TspDRoute & __route2) ;
 
 private :
 
-  void repair (Route & __route, unsigned __cut1, unsigned __cut2) ;
+  void repair (TspDRoute & __route, unsigned __cut1, unsigned __cut2) ;
 } ;
 
 

@@ -25,7 +25,10 @@
 #include <do/make_run.h>
 
 #include "tspeval.h"
-
+#include "MOEO/tspxoverdual.h"
+#include "tspdrouteinit.h"
+#include "tspdualdatahelpers.h"
+#include "moroutegraph.h"
 
 TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -165,6 +168,68 @@ void TspEvoSolverViewModel::Solve()
   //  emit DidSolveGeneration(1);
 }
 
+
+
+void TspEvoSolverViewModel::SolveMultiObjectivePermutized()
+{
+
+    int popSize = (int)m_populationsize;
+
+    Graph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
+    RouteInit init ; // Sol. Random Init.
+    RouteEval full_eval ; // Full Evaluator
+
+    eoPop <Route> pop(popSize, init) ; // Population
+    TspRoutes = pop;
+
+    apply <Route> (full_eval, pop) ;
+    eoGenContinue <Route> cont(m_generations) ; /* Continuator (A fixed number of  100 iterations */
+    eoStochTournamentSelect <Route> select_one ; // Selector
+    eoSelectNumber <Route> select (select_one, popSize) ;
+
+    PartialMappedXover cross ;
+    CitySwap mut ; // City Swap Mutator
+    eoSGATransform <Route> transform (cross, 1, mut, m_mutationProb) ;
+    eoElitism <Route> merge (1) ; // Use of Elistism
+    eoStochTournamentTruncate <Route> reduce (0.7) ; // Stoch. Replacement
+
+
+    eoEasyEA <Route> ea (cont, full_eval, select, transform, merge, reduce) ;
+
+    eoCheckPoint<Route> checkpoint(cont);
+    eoValueParam<unsigned> generationCounter(0, "Generation");
+    eoIncrementor<unsigned> increment(generationCounter.value());
+    eoAverageStat<Route>  stat;
+    checkpoint.add(stat);
+    eoSecondMomentStats<Route> stats;
+
+    checkpoint.add(stats);
+     ea (pop);
+
+       std :: cout << "[To] " << pop.best_element () << std :: endl ;
+
+        beginResetModel();
+       m_data.clear();
+       int pint = 0;
+       for(pint = 0; pint<pop.size();pint++){
+           QVector<qreal> val;
+           val.push_back((qreal)pint);
+           val.push_back((qreal)pop[pint].fitness());
+           m_data.push_back(val);
+       }
+
+     m_rowCount = m_populationsize;
+
+     endResetModel();
+     emit populationChanged(TspRoutes);
+       QModelIndex indexA = this->index(0, 0, QModelIndex());
+       QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
+
+       UpdateDataRange();
+       emit dataChanged(indexA, indexC);
+}
+
+
 int TspEvoSolverViewModel::GetResult()
 {
     int result = 0;
@@ -235,6 +300,8 @@ int TspEvoSolverViewModel::GetResult()
 
 void TspEvoSolverViewModel::SolveMOEO()
 {
+        int popSize = (int)m_populationsize;
+        MORouteGraph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
 
        // eoParser parser();  // for user-parameter reading
         eoState state;                // to keep all things allocated
@@ -260,15 +327,11 @@ void TspEvoSolverViewModel::SolveMOEO()
 
          // The fitness evaluation
          eoEvalFunc <TspDRoute> * eval;
-         eval = new TspBaseEval;
-         
-         // the genotype (through a genotype initializer)
-         eoRealVectorBounds bounds(VEC_SIZE, 0.0, 50.0);
-         eoRealInitBounded <TspDRoute> init (bounds);
-         // the variation operators
-         SBXCrossover < TspDRoute > xover(bounds, 15);
+         eval = new TspDualEval;
 
-         PolynomialMutation < TspDRoute > mutation (bounds, INT_P_MUT, 20);
+         //eoRealInitBounded <TspDRoute> init (bounds);
+         TspDualXover xover;
+         TspDualMutation  mutation; // (bounds, INT_P_MUT, 20);
 
          /*** the representation-independent things ***/
          // initialization of the population
@@ -290,17 +353,77 @@ void TspEvoSolverViewModel::SolveMOEO()
          moeoAdditiveEpsilonBinaryMetric < TSPObjectiveVector > metric;
 
          moeoIBEA<TspDRoute> algo(*checkpoint, evalFunc ,op, metric);
-        //   moeoIBEA<TspDRoute> algo( evalFunc ,op, metric);
 
+        //   moeoIBEA<TspDRoute> algo( evalFunc ,op, metric);
        //  eoPop<TspDRoute>& pop = do_make_pop(parser, state, init);
-         eoPop <TspDRoute> pop(m_populationsize, init) ; // Population
+
+         TspDRouteInit drouteInit ; // Sol. Random Init.
+
+         eoPop <TspDRoute> pop(m_populationsize, drouteInit) ; // Population
 
 
          do_run(algo, pop);
          moeoUnboundedArchive<TspDRoute> finalArchive;
          finalArchive(pop);
 
+         //now update the UI
+          beginResetModel();
+         m_data.clear();
+         int pint = 0;
+         for(pint = 0; pint<pop.size();pint++){
+             QVector<qreal> val;
+             val.push_back((qreal)pint);
+             val.push_back((qreal)pop[pint].fitness());
+             m_data.push_back(val);
+         }
+
+       m_rowCount = m_populationsize;
+
+       endResetModel();
+       emit populationChanged(TspRoutes);
+         QModelIndex indexA = this->index(0, 0, QModelIndex());
+         QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
+
+         UpdateDataRange();
+         emit dataChanged(indexA, indexC);
+
 }
+
+/*
+void SolveTspDual()
+{
+        unsigned argc;
+        char **argv;
+        eoParser parser(argc, argv);  // for user-parameter reading
+        eoState state;                // to keep all things allocated
+
+        // The fitness evaluation
+        eoEvalFuncCounter<TspDRoute>& eval = do_make_eval(state);
+        // the genotype (through a genotype initializer)
+        eoInit<TspDRoute>& init = do_make_genotype(state);
+        // the variation operators
+        eoGenOp<TspDRoute>& op = do_make_op(state);
+
+        // initialization of the population
+        eoPop<TspDRoute>& pop = do_make_pop(parser, state, init);
+        // definition of the archive
+        moeoUnboundedArchive<TspDRoute> arch;
+
+        // stopping criteria
+        eoContinue<TspDRoute>& term = do_make_continue_moeo(parser, state, eval);
+        // output
+        eoCheckPoint<TspDRoute>& checkpoint = do_make_checkpoint_moeo(parser, state, eval, term, pop, arch);
+        // algorithm
+        eoAlgo<TspDRoute>& algo = do_make_ea_moeo(parser, state, eval, checkpoint, op, arch);
+
+
+        // first evalution
+        apply<TspDRoute>(eval, pop);
+
+        // run the algo
+        do_run(algo, pop);
+}
+*/
 
 bool TspEvoSolverViewModel::IsSolving()
 {
