@@ -31,7 +31,8 @@
 
 #include "MOEO/tspdroute.h"
 
-extern std::vector<eoPop <TspDRoute>> TspRouteHistory;
+extern std::vector<std::vector <TspDRoute*>> TspRouteHistory;
+extern std::vector<eoPop <TspDRoute>> TspRoutePopulationsHistory;
 extern  eoPop <TspDRoute> TspRoutes;
 extern  QList<TspDRoute> BestTspRoutes;
 

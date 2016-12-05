@@ -61,7 +61,9 @@ SOURCES       = ../TspEvo/main.cpp \
 		../TspEvo/tspdualeval.cpp \
 		../TspEvo/tspdualcrossover.cpp \
 		../TspEvo/tspdualmutation.cpp \
-		../TspEvo/tspdroute.cpp qrc_qml.cpp \
+		../TspEvo/tspdroute.cpp \
+		../TspEvo/tspgenerationevaluationcheckpoint.cpp \
+		../TspEvo/tspgenerationprogressmonitor.cpp qrc_qml.cpp \
 		moc_tspevosolverviewmodel.cpp \
 		moc_tspevofitnesshistorydatamodel.cpp \
 		moc_tsppathgraphview.cpp
@@ -79,6 +81,8 @@ OBJECTS       = main.o \
 		tspdualcrossover.o \
 		tspdualmutation.o \
 		tspdroute.o \
+		tspgenerationevaluationcheckpoint.o \
+		tspgenerationprogressmonitor.o \
 		qrc_qml.o \
 		moc_tspevosolverviewmodel.o \
 		moc_tspevofitnesshistorydatamodel.o \
@@ -255,7 +259,9 @@ DIST          = /home/dominicus/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../TspEvo/tspdualeval.h \
 		../TspEvo/tspdualcrossover.h \
 		../TspEvo/tspdualmutation.h \
-		../TspEvo/tspvertex.h ../TspEvo/main.cpp \
+		../TspEvo/tspvertex.h \
+		../TspEvo/tspgenerationevaluationcheckpoint.h \
+		../TspEvo/tspgenerationprogressmonitor.h ../TspEvo/main.cpp \
 		../TspEvo/Model/tspevosolverviewmodel.cpp \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.cpp \
 		../TspEvo/tsppathgraphview.cpp \
@@ -268,7 +274,9 @@ DIST          = /home/dominicus/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../TspEvo/tspdualeval.cpp \
 		../TspEvo/tspdualcrossover.cpp \
 		../TspEvo/tspdualmutation.cpp \
-		../TspEvo/tspdroute.cpp
+		../TspEvo/tspdroute.cpp \
+		../TspEvo/tspgenerationevaluationcheckpoint.cpp \
+		../TspEvo/tspgenerationprogressmonitor.cpp
 QMAKE_TARGET  = TspEvo
 DESTDIR       = 
 TARGET        = TspEvo
@@ -620,8 +628,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../TspEvo/qml.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h ../TspEvo/MOEO/sbxcrossover.h ../TspEvo/MOEO/polynomialmutation.h ../TspEvo/MOEO/zdtobjectivevector.h ../TspEvo/MOEO/tspobjectivevector.h ../TspEvo/MOEO/tspdroute.h ../TspEvo/tspdataservice.h ../TspEvo/tspeval.h ../TspEvo/MOEO/tspxoverdual.h ../TspEvo/tspdrouteinit.h ../TspEvo/moroutegraph.h ../TspEvo/tspdualobjectivevectortraits.h ../TspEvo/tspdualdatahelpers.h ../TspEvo/tspdualeval.h ../TspEvo/tspdualcrossover.h ../TspEvo/tspdualmutation.h ../TspEvo/tspvertex.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/tsppathgraphview.cpp ../TspEvo/tspdataservice.cpp ../TspEvo/tspeval.cpp ../TspEvo/tspxoverdual.cpp ../TspEvo/tspdrouteinit.cpp ../TspEvo/moroutegraph.cpp ../TspEvo/tspdoualobjectivevectortraits.cpp ../TspEvo/tspdualeval.cpp ../TspEvo/tspdualcrossover.cpp ../TspEvo/tspdualmutation.cpp ../TspEvo/tspdroute.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents tspevosolverviewmodel.h ../TspEvo/Model/tspevosolverviewmodel.h ../TspEvo/Model/tspevofitnesshistorydatamodel.h ../TspEvo/tsppathgraphview.h ../TspEvo/MOEO/sbxcrossover.h ../TspEvo/MOEO/polynomialmutation.h ../TspEvo/MOEO/zdtobjectivevector.h ../TspEvo/MOEO/tspobjectivevector.h ../TspEvo/MOEO/tspdroute.h ../TspEvo/tspdataservice.h ../TspEvo/tspeval.h ../TspEvo/MOEO/tspxoverdual.h ../TspEvo/tspdrouteinit.h ../TspEvo/moroutegraph.h ../TspEvo/tspdualobjectivevectortraits.h ../TspEvo/tspdualdatahelpers.h ../TspEvo/tspdualeval.h ../TspEvo/tspdualcrossover.h ../TspEvo/tspdualmutation.h ../TspEvo/tspvertex.h ../TspEvo/tspgenerationevaluationcheckpoint.h ../TspEvo/tspgenerationprogressmonitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../TspEvo/main.cpp ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/tsppathgraphview.cpp ../TspEvo/tspdataservice.cpp ../TspEvo/tspeval.cpp ../TspEvo/tspxoverdual.cpp ../TspEvo/tspdrouteinit.cpp ../TspEvo/moroutegraph.cpp ../TspEvo/tspdoualobjectivevectortraits.cpp ../TspEvo/tspdualeval.cpp ../TspEvo/tspdualcrossover.cpp ../TspEvo/tspdualmutation.cpp ../TspEvo/tspdroute.cpp ../TspEvo/tspgenerationevaluationcheckpoint.cpp ../TspEvo/tspgenerationprogressmonitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -729,8 +737,29 @@ moc_tspevosolverviewmodel.cpp: /home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObj
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QTime \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdatetime.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
 		../TspEvo/tspdataservice.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
+		../TspEvo/MOEO/polynomialmutation.h \
+		../TspEvo/MOEO/sbxcrossover.h \
+		../TspEvo/tspeval.h \
+		../TspEvo/MOEO/tspxoverdual.h \
+		../TspEvo/tspdrouteinit.h \
+		../TspEvo/tspdualdatahelpers.h \
+		../TspEvo/tspdualeval.h \
+		../TspEvo/tspdualmutation.h \
+		../TspEvo/tspdualcrossover.h \
+		../TspEvo/moroutegraph.h \
+		../TspEvo/tspgenerationevaluationcheckpoint.h \
+		../TspEvo/tspgenerationprogressmonitor.h \
 		../TspEvo/Model/tspevosolverviewmodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/bin/moc
 	/home/dominicus/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/dominicus/Qt/5.7/gcc_64/mkspecs/linux-g++ -I/home/dominicus/Documents/INF/paretoevo/Src/TspEvo -I/usr/include/paradiseo/eo -I/usr/include/paradiseo/mo -I/usr/include/paradiseo/moeo -I/usr/include/paradiseo -I/home/dominicus/Qt/5.7/gcc_64/include -I/home/dominicus/Qt/5.7/gcc_64/include/QtQuick -I/home/dominicus/Qt/5.7/gcc_64/include/QtOpenGL -I/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets -I/home/dominicus/Qt/5.7/gcc_64/include/QtGui -I/home/dominicus/Qt/5.7/gcc_64/include/QtQml -I/home/dominicus/Qt/5.7/gcc_64/include/QtNetwork -I/home/dominicus/Qt/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../TspEvo/Model/tspevosolverviewmodel.h -o moc_tspevosolverviewmodel.cpp
@@ -929,6 +958,9 @@ moc_tsppathgraphview.cpp: /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QPainter \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QHash \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
 		../TspEvo/tsppathgraphview.h \
 		/home/dominicus/Qt/5.7/gcc_64/bin/moc
 	/home/dominicus/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/dominicus/Qt/5.7/gcc_64/mkspecs/linux-g++ -I/home/dominicus/Documents/INF/paretoevo/Src/TspEvo -I/usr/include/paradiseo/eo -I/usr/include/paradiseo/mo -I/usr/include/paradiseo/moeo -I/usr/include/paradiseo -I/home/dominicus/Qt/5.7/gcc_64/include -I/home/dominicus/Qt/5.7/gcc_64/include/QtQuick -I/home/dominicus/Qt/5.7/gcc_64/include/QtOpenGL -I/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets -I/home/dominicus/Qt/5.7/gcc_64/include/QtGui -I/home/dominicus/Qt/5.7/gcc_64/include/QtQml -I/home/dominicus/Qt/5.7/gcc_64/include/QtNetwork -I/home/dominicus/Qt/5.7/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../TspEvo/tsppathgraphview.h -o moc_tsppathgraphview.cpp
@@ -1041,8 +1073,29 @@ main.o: ../TspEvo/main.cpp /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QGuiAppli
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QTime \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdatetime.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
 		../TspEvo/tspdataservice.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
 		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
+		../TspEvo/MOEO/polynomialmutation.h \
+		../TspEvo/MOEO/sbxcrossover.h \
+		../TspEvo/tspeval.h \
+		../TspEvo/MOEO/tspxoverdual.h \
+		../TspEvo/tspdrouteinit.h \
+		../TspEvo/tspdualdatahelpers.h \
+		../TspEvo/tspdualeval.h \
+		../TspEvo/tspdualmutation.h \
+		../TspEvo/tspdualcrossover.h \
+		../TspEvo/moroutegraph.h \
+		../TspEvo/tspgenerationevaluationcheckpoint.h \
+		../TspEvo/tspgenerationprogressmonitor.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/QApplication \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/qapplication.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcursor.h \
@@ -1050,9 +1103,6 @@ main.o: ../TspEvo/main.cpp /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QGuiAppli
 		/home/dominicus/Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpaintdevice.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpalette.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qbrush.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qmatrix.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qpolygon.h \
@@ -1087,8 +1137,7 @@ main.o: ../TspEvo/main.cpp /home/dominicus/Qt/5.7/gcc_64/include/QtGui/QGuiAppli
 		/home/dominicus/Qt/5.7/gcc_64/include/QtQuick/qtquickglobal.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtQml/qqmlcomponent.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QList \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qaccessible.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor
+		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qaccessible.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../TspEvo/main.cpp
 
 tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Model/tspevosolverviewmodel.h \
@@ -1162,26 +1211,29 @@ tspevosolverviewmodel.o: ../TspEvo/Model/tspevosolverviewmodel.cpp ../TspEvo/Mod
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
-		../TspEvo/tspdataservice.h \
-		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QTime \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdatetime.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/QColor \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qcolor.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgb.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
-		../TspEvo/MOEO/polynomialmutation.h \
-		../TspEvo/MOEO/sbxcrossover.h \
+		../TspEvo/tspdataservice.h \
+		../TspEvo/MOEO/tspdroute.h \
 		../TspEvo/MOEO/tspobjectivevector.h \
 		../TspEvo/tspdualobjectivevectortraits.h \
-		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/Model/tspevofitnesshistorydatamodel.h \
+		../TspEvo/MOEO/polynomialmutation.h \
+		../TspEvo/MOEO/sbxcrossover.h \
 		../TspEvo/tspeval.h \
 		../TspEvo/MOEO/tspxoverdual.h \
 		../TspEvo/tspdrouteinit.h \
 		../TspEvo/tspdualdatahelpers.h \
 		../TspEvo/tspdualeval.h \
 		../TspEvo/tspdualmutation.h \
-		../TspEvo/tspdualcrossover.h
+		../TspEvo/tspdualcrossover.h \
+		../TspEvo/moroutegraph.h \
+		../TspEvo/tspgenerationevaluationcheckpoint.h \
+		../TspEvo/tspgenerationprogressmonitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspevosolverviewmodel.o ../TspEvo/Model/tspevosolverviewmodel.cpp
 
 tspevofitnesshistorydatamodel.o: ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp ../TspEvo/Model/tspevofitnesshistorydatamodel.h \
@@ -1262,7 +1314,22 @@ tspevofitnesshistorydatamodel.o: ../TspEvo/Model/tspevofitnesshistorydatamodel.c
 		/home/dominicus/Qt/5.7/gcc_64/include/QtGui/qrgba64.h \
 		../TspEvo/Model/tspevosolverviewmodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject \
-		../TspEvo/tspdataservice.h
+		../TspEvo/tspdataservice.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/MOEO/polynomialmutation.h \
+		../TspEvo/MOEO/sbxcrossover.h \
+		../TspEvo/tspeval.h \
+		../TspEvo/MOEO/tspxoverdual.h \
+		../TspEvo/tspdrouteinit.h \
+		../TspEvo/tspdualdatahelpers.h \
+		../TspEvo/tspdualeval.h \
+		../TspEvo/tspdualmutation.h \
+		../TspEvo/tspdualcrossover.h \
+		../TspEvo/moroutegraph.h \
+		../TspEvo/tspgenerationevaluationcheckpoint.h \
+		../TspEvo/tspgenerationprogressmonitor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspevofitnesshistorydatamodel.o ../TspEvo/Model/tspevofitnesshistorydatamodel.cpp
 
 tsppathgraphview.o: ../TspEvo/tsppathgraphview.cpp ../TspEvo/tsppathgraphview.h \
@@ -1387,7 +1454,11 @@ tsppathgraphview.o: ../TspEvo/tsppathgraphview.cpp ../TspEvo/tsppathgraphview.h 
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QAbstractTableModel \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QHash \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/moroutegraph.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tsppathgraphview.o ../TspEvo/tsppathgraphview.cpp
 
 tspdataservice.o: ../TspEvo/tspdataservice.cpp ../TspEvo/tspdataservice.h \
@@ -1460,7 +1531,10 @@ tspdataservice.o: ../TspEvo/tspdataservice.cpp ../TspEvo/tspdataservice.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
 		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
-		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h \
+		../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdataservice.o ../TspEvo/tspdataservice.cpp
 
 tspeval.o: ../TspEvo/tspeval.cpp ../TspEvo/tspeval.h \
@@ -1507,8 +1581,91 @@ tspdualmutation.o: ../TspEvo/tspdualmutation.cpp ../TspEvo/tspdualmutation.h \
 		../TspEvo/tspdualobjectivevectortraits.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdualmutation.o ../TspEvo/tspdualmutation.cpp
 
-tspdroute.o: ../TspEvo/tspdroute.cpp 
+tspdroute.o: ../TspEvo/tspdroute.cpp ../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/moroutegraph.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspdroute.o ../TspEvo/tspdroute.cpp
+
+tspgenerationevaluationcheckpoint.o: ../TspEvo/tspgenerationevaluationcheckpoint.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspgenerationevaluationcheckpoint.o ../TspEvo/tspgenerationevaluationcheckpoint.cpp
+
+tspgenerationprogressmonitor.o: ../TspEvo/tspgenerationprogressmonitor.cpp ../TspEvo/MOEO/tspdroute.h \
+		../TspEvo/MOEO/tspobjectivevector.h \
+		../TspEvo/tspdualobjectivevectortraits.h \
+		../TspEvo/tspgenerationprogressmonitor.h \
+		../TspEvo/tspdataservice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QObject \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qnamespace.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qglobal.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qconfig.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qfeatures.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtypetraits.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qisenum.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsysinfo.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlogging.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qflags.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmutex.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qnumeric.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qversiontagging.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstring.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qchar.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbytearray.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrefcount.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qarraydata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qalgorithms.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiterator.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpair.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringlist.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qregexp.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcoreevent.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmetatype.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qobject_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QVector \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvector.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qpoint.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QAbstractTableModel \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qvariant.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmap.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qdebug.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qhash.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qtextstream.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qiodevice.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qlocale.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qshareddata.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qset.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QHash \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/QRect \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qrect.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qmargins.h \
+		/home/dominicus/Qt/5.7/gcc_64/include/QtCore/qsize.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tspgenerationprogressmonitor.o ../TspEvo/tspgenerationprogressmonitor.cpp
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp

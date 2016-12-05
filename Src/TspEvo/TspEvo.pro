@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     tspdualeval.cpp \
     tspdualcrossover.cpp \
     tspdualmutation.cpp \
-    tspdroute.cpp
+    tspdroute.cpp \
+    tspgenerationevaluationcheckpoint.cpp \
+    tspgenerationprogressmonitor.cpp
 
 RESOURCES += qml.qrc
 
@@ -47,7 +49,9 @@ HEADERS += \
     tspdualeval.h \
     tspdualcrossover.h \
     tspdualmutation.h \
-    tspvertex.h
+    tspvertex.h \
+    tspgenerationevaluationcheckpoint.h \
+    tspgenerationprogressmonitor.h
 
 DISTFILES +=
 

@@ -22,12 +22,48 @@
 #include "order_xover.h"
 #include "partial_mapped_xover.h"
 #include "city_swap.h"
+#include <QtCore/QVector>
+#include <QtCore/QTime>
+#include <QtCore/QRect>
+#include <QtGui/QColor>
 
 // include package checkpointing
 #include <utils/checkpointing>
 
 #include "tspdataservice.h"
 #include "tspevofitnesshistorydatamodel.h"
+#include "MOEO/tspdroute.h"
+#include "tspevofitnesshistorydatamodel.h"
+
+
+#include <moeo>
+#include <es/eoRealInitBounded.h>
+
+#include "MOEO/polynomialmutation.h"
+#include "MOEO/sbxcrossover.h"
+#include "MOEO/tspobjectivevector.h"
+#include "MOEO/tspdroute.h"
+
+// how to initialize the population
+#include <do/make_pop.h>
+// the stopping criterion
+#include <do/make_continue_moeo.h>
+// outputs (stats, population dumps, ...)
+#include <do/make_checkpoint_moeo.h>
+// evolution engine (selection and replacement)
+#include <do/make_ea_moeo.h>
+// simple call to the algo
+#include <do/make_run.h>
+
+#include "tspeval.h"
+#include "MOEO/tspxoverdual.h"
+#include "tspdrouteinit.h"
+#include "tspdualdatahelpers.h"
+#include "moroutegraph.h"
+#include "tspgenerationevaluationcheckpoint.h"
+#include "tspgenerationprogressmonitor.h"
+#include "MOEO/tspdroute.h"
+#include "tspdualdatahelpers.h"
 
 
 class TspEvoSolverViewModel : public QAbstractTableModel
@@ -54,7 +90,8 @@ public:
     qreal getfitnessRangeEnd();
     TspEvoFitnessHistoryDataModel* gethistoryModel();
     void UpdateDataRange();
-
+    TspDRoute GetPopulationBestRoute(eoPop<TspDRoute> pop);
+    void ProcessPopulationHistory();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -94,9 +131,12 @@ private:
     TspEvoFitnessHistoryDataModel m_historyModel;
 
     QList<QVector<qreal>> m_data;
-   QHash<QString, QRect> m_mapping;
-   int m_columnCount;
-   int m_rowCount;
+    QList<qreal> moeoFitnessBestHistory;
+    QList<TspDRoute> moeoBestRouteHistory;
+    QList<qreal> moeoFitnessAverageHistory;
+    QHash<QString, QRect> m_mapping;
+    int m_columnCount;
+    int m_rowCount;
   //  eoEasyEA <Route> ea;
   //  eoGenContinue <Route> cont;
 };

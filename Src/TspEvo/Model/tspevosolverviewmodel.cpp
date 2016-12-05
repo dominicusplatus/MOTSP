@@ -1,34 +1,5 @@
 #include "tspevosolverviewmodel.h"
-#include "tspevofitnesshistorydatamodel.h"
-#include <QtCore/QVector>
-#include <QtCore/QTime>
-#include <QtCore/QRect>
-#include <QtGui/QColor>
 
-#include <moeo>
-#include <es/eoRealInitBounded.h>
-
-#include "MOEO/polynomialmutation.h"
-#include "MOEO/sbxcrossover.h"
-#include "MOEO/tspobjectivevector.h"
-#include "MOEO/tspdroute.h"
-
-// how to initialize the population
-#include <do/make_pop.h>
-// the stopping criterion
-#include <do/make_continue_moeo.h>
-// outputs (stats, population dumps, ...)
-#include <do/make_checkpoint_moeo.h>
-// evolution engine (selection and replacement)
-#include <do/make_ea_moeo.h>
-// simple call to the algo
-#include <do/make_run.h>
-
-#include "tspeval.h"
-#include "MOEO/tspxoverdual.h"
-#include "tspdrouteinit.h"
-#include "tspdualdatahelpers.h"
-#include "moroutegraph.h"
 
 TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -173,22 +144,53 @@ int TspEvoSolverViewModel::GetResult()
         return  result;
 }
 
+
+TspDRoute TspEvoSolverViewModel::GetPopulationBestRoute(eoPop<TspDRoute> pop)
+{
+    int result = 0;
+     TspDRoute best;
+
+    //get first route
+    if(pop.size() < 1){
+        return best;
+    }
+
+    int verts = MORouteGraph::size();
+     best = pop[0];
+
+    int routes = pop.size();
+    int rinc = 0;
+    for(rinc=0; rinc<routes;rinc++){
+        TspDRoute rt = pop[rinc];
+
+        if(rt.size() < verts){
+
+        }
+
+        QPoint from, to, prev;
+
+        TspDualEval eval;
+        double routeLen = eval.length(rt);
+        if(routeLen < eval.length(best) ){
+            best = rt;
+        }
+
+    }
+
+        return  best;
+}
+
+
 void TspEvoSolverViewModel::SolveMOEO()
 {
-        int popSize = (int)m_populationsize;
         MORouteGraph :: load ("/home/dominicus/Documents/INF/paretoevo/Src/TSP/benchs/test1.tsp") ; // Instance
         eoState state;                // to keep all things allocated
 
-        unsigned int MAX_GEN = m_generations; //parser.createParam((unsigned int)(100), "maxGen", "Maximum number of generations",'G',"Param").value();
-        double P_CROSS = 1.0;   //parser.createParam(1.0, "pCross", "Crossover probability",'C',"Param").value();
-        double EXT_P_MUT = 1.0; //parser.createParam(1.0, "extPMut", "External Mutation probability",'E',"Param").value();
-        double INT_P_MUT = 0.083;   //parser.createParam(0.083, "intPMut", "Internal Mutation probability",'I',"Param").value();
-        unsigned int VEC_SIZE = (unsigned int)(30); //parser.createParam((unsigned int)(30), "vecSize", "Genotype Size",'V',"Param").value();
-        unsigned int NB_OBJ= (unsigned int)(2); //parser.createParam((unsigned int)(2), "nbObj", "Number of Objective",'N',"Param").value();
-        unsigned int EVAL = (unsigned int)(100);  //parser.createParam((unsigned int)(1), "eval", "Number of the ZDT evaluation fonction",'F',"Param").value();
-        unsigned int NB_EVAL =(unsigned int)(50);    /// parser.createParam((unsigned int)(0), "nbEval", "Number of evaluation before Stop",'P',"Param").value();
-        unsigned int TIME = (unsigned int)(0);  //parser.createParam((unsigned int)(0), "time", "Time(seconds) before Stop",'T',"Param").value();
-
+        double P_CROSS = 1.0;
+        double EXT_P_MUT = 1.0;
+        double INT_P_MUT = 0.083;
+        unsigned int VEC_SIZE = (unsigned int)(30);
+        unsigned int NB_OBJ= (unsigned int)(2);
 
         /*** the representation-dependent things ***/
          std::vector <bool> bObjectives(2);
@@ -201,33 +203,40 @@ void TspEvoSolverViewModel::SolveMOEO()
          eoEvalFunc <TspDRoute> * eval;
          eval = new TspDualEval;
 
-         //eoRealInitBounded <TspDRoute> init (bounds);
          TspDualXover xover;
          TspDualMutation  mutation; // (bounds, INT_P_MUT, 20);
 
-         /*** the representation-independent things ***/
-         // initialization of the population
-         // stopping criteria
-
-         eoGenContinue<TspDRoute> term(MAX_GEN);
+         eoGenContinue<TspDRoute> term(m_generations);
          eoEvalFuncCounter<TspDRoute> evalFunc(*eval);
          eoCheckPoint<TspDRoute>* checkpoint;
 
-      //  if (TIME > 0)
-      //       checkpoint = new eoCheckPoint<TspDRoute>(*(new eoTimeContinue<TspDRoute>(TIME)));
-       //  else if (NB_EVAL > 0)
-             checkpoint = new eoCheckPoint<TspDRoute>(*(new eoEvalContinue<TspDRoute>(evalFunc, NB_EVAL)));
+         //eoBestFitnessStat<TspDRoute>  best("Best_Fitness");
+       //  eoAverageStat<TspDRoute> avg("Avg_Fitness");
 
-         checkpoint->add(term);
+         //TspGenerationProgressMonitor progmon;
+         //progmon.add(avg);
+
+         eoStdoutMonitor mon;
+
+         checkpoint = new eoCheckPoint<TspDRoute>(term);
+
+         TspGenerationEvaluationCheckpoint popChkpt;
+         checkpoint->add(popChkpt);
+
+         //checkpoint->add(term);
+
+       //  checkpoint->add(best);
+       //  checkpoint->add(avg);
+       //  checkpoint->add(progmon);
+
+         //mon.add(best);
+         //mon.add(avg);
 
          // algorithm
          eoSGAGenOp < TspDRoute > op(xover, P_CROSS, mutation, EXT_P_MUT);
          moeoAdditiveEpsilonBinaryMetric < TSPObjectiveVector > metric;
 
          moeoIBEA<TspDRoute> algo(*checkpoint, evalFunc ,op, metric);
-
-        //   moeoIBEA<TspDRoute> algo( evalFunc ,op, metric);
-       //  eoPop<TspDRoute>& pop = do_make_pop(parser, state, init);
 
          TspDRouteInit drouteInit ; // Sol. Random Init.
 
@@ -242,24 +251,50 @@ void TspEvoSolverViewModel::SolveMOEO()
 
          //now update the UI
           beginResetModel();
+
          m_data.clear();
-         int pint = 0;
-         for(pint = 0; pint<pop.size();pint++){
-             QVector<qreal> val;
-             val.push_back((qreal)pint);
-             val.push_back((qreal)pop[pint].fitness());
-             m_data.push_back(val);
-         }
 
        m_rowCount = m_populationsize;
 
+       ProcessPopulationHistory();
+
        endResetModel();
+
        emit populationChanged(TspRoutes);
          QModelIndex indexA = this->index(0, 0, QModelIndex());
          QModelIndex indexC = this->index(m_populationsize, 1, QModelIndex());
 
          UpdateDataRange();
          emit dataChanged(indexA, indexC);
+
+}
+
+void  TspEvoSolverViewModel::ProcessPopulationHistory()
+{
+     moeoFitnessBestHistory.clear();
+     moeoFitnessAverageHistory.clear();
+
+     if(TspRoutePopulationsHistory.size() < 1){
+         return;
+     }
+
+     //find best fitness for each generation
+    int ginc =0;
+    for(ginc=0; ginc<MORouteGraph::size();ginc++)
+    {
+        eoPop<TspDRoute> pop = TspRoutePopulationsHistory[ginc];
+        TspDRoute bestroute = GetPopulationBestRoute(pop);
+        moeoBestRouteHistory.push_back(bestroute);
+
+        TspDualEval eval;
+        double routeLen = eval.length(bestroute);
+        moeoFitnessBestHistory.push_back( routeLen );
+
+        QVector<qreal> val;
+        val.push_back((qreal)ginc);
+        val.push_back((qreal)routeLen);
+        m_data.push_back(val);
+    }
 
 }
 
@@ -429,6 +464,8 @@ void TspEvoSolverViewModel::UpdateDataRange()
 
  QVariant TspEvoSolverViewModel::data(const QModelIndex &index, int role) const
  {
+     //    QList<qreal> moeoFitnessBestHistory;
+    //   QList<qreal> moeoFitnessAverageHistory;
      if (role == Qt::DisplayRole) {
          return m_data[index.row()][index.column()];     //->at(index.column());
      } else if (role == Qt::EditRole) {

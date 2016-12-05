@@ -29,11 +29,10 @@ namespace MORouteGraph {
     // Computations.
     for (unsigned i = 0 ; i < dist.size () ; i ++)
       for (unsigned j = i + 1 ; j < dist.size () ; j ++) {
-    double distX = vectCoord [i].first - vectCoord [j].first ;
-    double distY = vectCoord [i].second - vectCoord [j].second ;
-    dist [i] [j] = dist [j] [i] = (unsigned) (sqrt ((float) (distX * distX + distY * distY)) + 0.5) ;
+        double distX = vectCoord [i].first - vectCoord [j].first ;
+        double distY = vectCoord [i].second - vectCoord [j].second ;
+        dist [i] [j] = dist [j] [i] = (unsigned) (sqrt ((float) (distX * distX + distY * distY)) + 0.5) ;
       }
-
   }
 
   void computeCosts()
@@ -47,9 +46,9 @@ namespace MORouteGraph {
       // Computations.
       for (unsigned i = 0 ; i < dist.size () ; i ++)
         for (unsigned j = i + 1 ; j < dist.size () ; j ++) {
-      double distX = vectCoord [i].first - vectCoord [j].first ;
-      double distY = vectCoord [i].second - vectCoord [j].second ;
-      dist [i] [j] = dist [j] [i] = (unsigned) (sqrt ((float) (distX * distX + distY * distY)) + 0.5) ;
+          double distX = vectCoord [i].first - vectCoord [j].first ;
+          double distY = vectCoord [i].second - vectCoord [j].second ;
+          dist [i] [j] = dist [j] [i] = (unsigned) (sqrt ((float) (distX * distX + distY * distY)) + 0.5) ;
         }
   }
 

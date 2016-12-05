@@ -14,12 +14,13 @@ public:
 
     void operator()(TspDRoute & route);
 
-
-private:
-
     double length(const TspDRoute & route);
 
     double cost(const TspDRoute & route);
+
+private:
+
+
 
 
 };
