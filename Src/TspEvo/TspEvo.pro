@@ -45,7 +45,6 @@ HEADERS += \
     tspdrouteinit.h \
     moroutegraph.h \
     tspdualobjectivevectortraits.h \
-    tspdualdatahelpers.h \
     tspdualeval.h \
     tspdualcrossover.h \
     tspdualmutation.h \

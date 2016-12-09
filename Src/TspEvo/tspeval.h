@@ -9,14 +9,6 @@
 #include <eoSelectNumber.h>
 
 #include <moeo>
-
-#include "graph.h"
-#include "route.h"
-#include "route_init.h"
-#include "route_eval.h"
-#include "order_xover.h"
-#include "partial_mapped_xover.h"
-#include "city_swap.h"
 #include "MOEO/tspobjectivevector.h"
 #include "MOEO/tspdroute.h"
 

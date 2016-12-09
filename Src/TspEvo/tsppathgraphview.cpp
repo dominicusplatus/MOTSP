@@ -1,5 +1,6 @@
 #include "tsppathgraphview.h"
 #include "moroutegraph.h"
+#include "tspdualeval.h"
 
 //![0]
 TspPathGraphView::TspPathGraphView(QQuickItem *parent): QQuickPaintedItem(parent)
@@ -129,6 +130,20 @@ void TspPathGraphView::paint(QPainter *painter)
            int vertX = 0 , vertY = 0;
            int vertNo = 0;
 
+           /*
+           std::vector<TspDRoute> bestRoutes;
+           int ginc =0;
+           for(ginc=0; ginc<TspRoutePopulationsHistory.size();ginc++)
+           {
+               eoPop<TspDRoute> pop = TspRoutePopulationsHistory[ginc];
+               TspDRoute bestroute = GetPopulationBestRoute(pop);
+
+           }
+           */
+
+
+
+           DesignateParetoFrontSolutionsForPopulation(1, TspRoutePopulationsHistory[TspRoutePopulationsHistory.size()-1]);
            //get first route
            if(BestTspRoutes.size() < 1){
                return;
@@ -158,25 +173,27 @@ void TspPathGraphView::paint(QPainter *painter)
            {
                to = QPoint();
               std::pair <double, double> coordsTo = MORouteGraph::getCityCoords(rt[vertNo]);
-               to.setX( coordsTo.first *3);
-               to.setY(coordsTo.second *3);
+               to.setX( coordsTo.first );
+               to.setY(coordsTo.second );
                painter->drawText( to, QString::number(vertNo) );
                painter->drawLine(prev, to);
 
                int diffX = abs( to.x() - prev.x());
                int diffY = abs( to.y() - prev.y());
 
-               sumLen += (int) ( sqrt( pow(diffX,2) + pow(diffY,2) ) );
+               //sumLen += (int) ( sqrt( pow(diffX,2) + pow(diffY,2) ) );
 
                prev = to;
          }
 
-           m_length = sumLen;
+           TspDualEval eval;
+           double len1 = eval.length(rt);  //MORouteGraph::length(rt);
+           m_length = len1;
 
            QPoint resPt;
-           resPt.setX( 22);
-           resPt.setY(22);
-            painter->drawText( resPt, QString::number(sumLen) );
+           resPt.setX( 170);
+           resPt.setY(170);
+            painter->drawText( resPt, QString::number(len1) );
 
        }
 

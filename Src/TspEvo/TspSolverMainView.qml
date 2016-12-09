@@ -43,8 +43,8 @@ Rectangle {
                 height : parent.height
 
                 Rectangle {
-                    width: parent.width *0.8
-                    height : parent.height *0.8
+                    width: parent.width *0.5
+                    height : parent.height *0.5
                     color: "white"
 
                     TspPathGraphView
@@ -55,30 +55,58 @@ Rectangle {
                         fillColor: "transparent"
                         //population: solverModel.population
 
+                    }
+
+                }
+
+                Rectangle {
+                    width: parent.width *0.5
+                    height : parent.height *0.5
+                    color: "white"
+
+                    TspPathGraphView
+                    {
+                        id: graphView12
+                        width: parent.width
+                        height : parent.height
+                        fillColor: "transparent"
+                        //population: solverModel.population
 
                     }
 
+                }
+
+                Rectangle {
+                    width: parent.width *0.5
+                    height : parent.height *0.5
+                    color: "white"
+
+                    TspPathGraphView
+                    {
+                        id: graphView123
+                        width: parent.width
+                        height : parent.height
+                        fillColor: "transparent"
+                        //population: solverModel.population
+
+                    }
 
                 }
 
                 Rectangle {
                     width: parent.width *0.5
                     height : parent.height *0.5
-                    color: "#854268"
+                    color: "white"
 
-                }
+                    TspPathGraphView
+                    {
+                        id: graphView1234
+                        width: parent.width
+                        height : parent.height
+                        fillColor: "transparent"
+                        //population: solverModel.population
 
-                Rectangle {
-                    width: parent.width *0.5
-                    height : parent.height *0.5
-                    color: "#264268"
-
-                }
-
-                Rectangle {
-                    width: parent.width *0.5
-                    height : parent.height *0.5
-                    color: "#185268"
+                    }
 
                 }
 
@@ -91,35 +119,58 @@ Rectangle {
             height : parent.height *0.5
 
             ChartView {
-                title: "Fitness history"
+                title: "TSP generation history"
                 anchors.fill: parent
                 antialiasing: true
 
                 ValueAxis {
                         id: xAxisPopSize
                         min: 0
-                        max: solverModel.populationSize
+                        max: solverModel.generations
                     }
 
                 ValueAxis {
-                        id: yAxisFitness
+                        id: yAxisLength
                         min: solverModel.fitnessRangeStart
                         max: solverModel.fitnessRangeEnd
+                    }
+                ValueAxis {
+                        id: yAxisCost
+                        min: solverModel.costsRangeStart
+                        max: solverModel.costsRangeEnd
                     }
 
 
                 LineSeries {
                     id: lineone
-                    name: "Generation fitness"
+                    name: "Length"
                     axisX: xAxisPopSize
-                    axisY: yAxisFitness
+                    axisY: yAxisLength
 
                 }
+
+
                 VXYModelMapper{
                     model: solverModel    //TspEvoSolverViewModel{}  //model   //TspEvoFitnessHistoryDataModel{}
                     series: lineone
                     xColumn: 0
                     yColumn: 1
+                }
+
+
+
+                LineSeries {
+                    id: lineone2
+                    name: "Cost"
+                    axisX: xAxisPopSize
+                    axisY: yAxisCost
+
+                }
+                VXYModelMapper{
+                    model: solverModel    //TspEvoSolverViewModel{}  //model   //TspEvoFitnessHistoryDataModel{}
+                    series: lineone2
+                    xColumn: 2
+                    yColumn: 3
                 }
 
             }
@@ -132,6 +183,7 @@ Rectangle {
             border.color: scatterGraph.theme.gridLineColor
             border.width: 2
 
+            /*
             Scatter3D {
                 id: scatterGraph
                 anchors.fill: parent
@@ -153,6 +205,101 @@ Rectangle {
                     }
                 }
             }
+
+            */
+
+            Item {
+                 id: surfaceView
+                 width: parent.width
+                 height: parent.height
+                 anchors.top: parent.top
+                 anchors.left: parent.left
+
+                 Data {
+                     id: surfaceData
+                 }
+
+                 //! [0]
+                 ColorGradient {
+                     id: surfaceGradient
+                     ColorGradientStop { position: 0.0; color: "darkslategray" }
+                     ColorGradientStop { id: middleGradient; position: 0.25; color: "peru" }
+                     ColorGradientStop { position: 1.0; color: "red" }
+                 }
+                 //! [0]
+
+                 Surface3D {
+                     id: surfacePlot
+                     width: surfaceView.width
+                     height: surfaceView.height
+                     //! [7]
+                     theme: Theme3D {
+                         type: Theme3D.ThemeStoneMoss
+                         font.family: "STCaiyun"
+                         font.pointSize: 35
+                         colorStyle: Theme3D.ColorStyleRangeGradient
+                         baseGradients: [surfaceGradient]
+                     }
+                     //! [7]
+                     shadowQuality: AbstractGraph3D.ShadowQualityMedium
+                     selectionMode: AbstractGraph3D.SelectionSlice | AbstractGraph3D.SelectionItemAndRow
+                     scene.activeCamera.cameraPreset: Camera3D.CameraPresetIsometricLeft
+                     axisY.min: 0.0
+                     axisY.max: 500.0
+                     axisX.segmentCount: 10
+                     axisX.subSegmentCount: 2
+                     axisX.labelFormat: "%i"
+                     axisZ.segmentCount: 10
+                     axisZ.subSegmentCount: 2
+                     axisZ.labelFormat: "%i"
+                     axisY.segmentCount: 5
+                     axisY.subSegmentCount: 2
+                     axisY.labelFormat: "%i"
+                     axisY.title: "Height"
+                     axisX.title: "Latitude"
+                     axisZ.title: "Longitude"
+
+                     //! [5]
+                     Surface3DSeries {
+                         id: surfaceSeries
+                         flatShadingEnabled: false
+                         drawMode: Surface3DSeries.DrawSurface
+
+                         ItemModelSurfaceDataProxy {
+                             //! [5]
+                             //! [6]
+                             itemModel: surfaceData.model
+                             rowRole: "longitude"
+                             columnRole: "latitude"
+                             yPosRole: "height"
+                         }
+                         //! [6]
+                         onDrawModeChanged: checkState()
+                     }
+                     //! [4]
+                     Surface3DSeries {
+                         id: heightSeries
+                         flatShadingEnabled: false
+                         drawMode: Surface3DSeries.DrawSurface
+                         visible: false
+
+                         HeightMapSurfaceDataProxy {
+                             heightMapFile: ":/heightmaps/image"
+                             // We don't want the default data values set by heightmap proxy.
+                             minZValue: 30
+                             maxZValue: 60
+                             minXValue: 67
+                             maxXValue: 97
+                         }
+
+                         onDrawModeChanged: checkState()
+                     }
+                     //! [4]
+                 }
+             }
+
+
+
         }
 
         Rectangle {
@@ -173,21 +320,50 @@ Rectangle {
 
                 ComboBox {
                     currentIndex: 1
+                    textRole: "text"
                     model: ListModel {
                         id: cbItems2
-                        ListElement { text: "MOGA";  }
-                        ListElement { text: "EasyEA"; }
-                        ListElement { text: "IBEA"; }
-                        ListElement { text: "ASEEA"; }
-                        ListElement { text: "NSGA"; }
-                        ListElement { text: "PLS1"; }
-                        ListElement { text: "PLS2"; }
-                        ListElement { text: "SEEA"; }
-                        ListElement { text: "SPEA2"; }
+                        ListElement { text: "MOGA";   param: 1; }
+                        ListElement { text: "NSGA";     param: 2; }
+                        ListElement { text: "NSGA-II";   param: 3; }
+                        ListElement { text: "SPEA2";  param: 4; }
+                        ListElement { text: "IBEA";   param: 5;}
+                        ListElement { text: "SEEA";   param: 6;}
                     }
                     width: 200
-                    onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
+                    onCurrentIndexChanged: {
+                        //console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
+                        solverModel.SetMethod( cbItems2.get(currentIndex).param);
+                    }
+
                 }
+
+
+                Label {
+                    text: "Dataset"
+                }
+
+                ComboBox
+                {
+                    currentIndex: 1
+                    textRole: "text"
+                    model: ListModel {
+                        id: cbItems266
+                        ListElement { text: "ALI535";   param: 1;   }
+                        ListElement { text: "ELI101";     param: 2; }
+                        ListElement { text: "PR2392";   param: 3;   }
+                        ListElement { text: "RL5915";  param: 4;    }
+                        ListElement { text: "USA13509";   param: 5; }
+                        ListElement { text: "TEST1";   param: 6;     }
+                        ListElement { text: "TEST2";   param: 7;     }
+                    }
+                    width: 200
+                    onCurrentIndexChanged: {
+                        solverModel.SetDataset( cbItems266.get(currentIndex).param);
+                    }
+
+                }
+
 
 
                 Label {
@@ -217,7 +393,7 @@ Rectangle {
 
 
                 Label {
-                    text: "Mutation probability"
+                    text: "Mutation probability %"
                 }
 
                 SpinBox {
@@ -239,31 +415,11 @@ Rectangle {
                     text: "Solve"
                     onClicked: {
                         solverModel.SolveMOEO();
-                        solverModel.GetResult();
+                      //  solverModel.GetResult();
                         graphView1.update();
                     }
 
                 }
-
-
-                NewButton {
-                    width : parent.width * 0.6
-                    height : parent.height * 0.2
-                    text: "Solve Until Fit"
-                    onClicked: {
-                        var result = 0;
-                        do{
-                             solverModel.SolveMOEO();
-                            graphView1.update();
-                            result = solverModel.GetResult();
-                        }while(result > 1400);
-
-
-                    }
-
-                }
-
-
 
             }
 

@@ -5,25 +5,12 @@
 #include <QtQuick/QQuickPaintedItem>
 #include <QColor>
 
-
 #include <eoEasyEA.h>
 #include <eoGenContinue.h>
 #include <eoStochTournamentSelect.h>
 #include <eoSGATransform.h>
 #include <eoSelectNumber.h>
-
 #include <moeo>
-
-#include "graph.h"
-#include "route.h"
-#include "route_init.h"
-#include "route_eval.h"
-#include "order_xover.h"
-#include "partial_mapped_xover.h"
-#include "city_swap.h"
-
-#include "graph.h"
-#include "route.h"
 
 #include "tspdataservice.h"
 
