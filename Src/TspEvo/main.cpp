@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QQmlContext>
 #include "tsppathgraphview.h"
+#include "tspdualsolverresultsurfaceviewmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<TspEvoSolverViewModel>("com.tspevo.data", 1, 0, "TspEvoSolverViewModel");
     qmlRegisterType<TspEvoFitnessHistoryDataModel>("com.tspevo.data", 1, 0, "TspEvoFitnessHistoryDataModel");
     qmlRegisterType<TspPathGraphView>("com.tspevo.data", 1, 0, "TspPathGraphView");
+    qmlRegisterType<TspDualSolverResultSurfaceViewModel>("com.tspevo.data", 1, 0, "TspDualSolverResultSurfaceViewModel");
 
     TspEvoSolverViewModel model;
     QQmlContext *ctxt = engine.rootContext();

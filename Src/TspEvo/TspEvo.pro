@@ -17,7 +17,9 @@ SOURCES += main.cpp \
     tspdualmutation.cpp \
     tspdroute.cpp \
     tspgenerationevaluationcheckpoint.cpp \
-    tspgenerationprogressmonitor.cpp
+    tspgenerationprogressmonitor.cpp \
+    tspdualsolverresultsurfaceviewmodel.cpp \
+    qsurfacemodelresultvertextsp.cpp
 
 RESOURCES += qml.qrc
 
@@ -50,7 +52,11 @@ HEADERS += \
     tspdualmutation.h \
     tspvertex.h \
     tspgenerationevaluationcheckpoint.h \
-    tspgenerationprogressmonitor.h
+    tspgenerationprogressmonitor.h \
+    tspdualobjvectorcomparator.h \
+    tspdualxoverstandarized.h \
+    tspdualsolverresultsurfaceviewmodel.h \
+    qsurfacemodelresultvertextsp.h
 
 DISTFILES +=
 

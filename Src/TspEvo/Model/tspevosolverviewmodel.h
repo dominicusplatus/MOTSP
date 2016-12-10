@@ -57,6 +57,7 @@
 #include "MOEO/tspdroute.h"
 #include "tspdualeval.h"
 #include "tspdualmutation.h"
+#include "tspdualobjvectorcomparator.h"
 
 typedef enum{
     MOGA =1,
@@ -156,8 +157,8 @@ public slots:
     void sethistoryModel(TspEvoFitnessHistoryDataModel* a);
 private:
    // eoPop <Route> m_population;
-    qreal m_populationsize;
-    qreal m_generations;
+  //  qreal m_populationsize;
+   // qreal m_generations;
     qreal m_mutationProb;
     qreal m_fitnessRangeStart;
     qreal m_fitnessRangeEnd;
@@ -165,8 +166,6 @@ private:
     qreal m_costsRangeEnd;
     TspEvoFitnessHistoryDataModel m_historyModel;
 
-    QList<QVector<qreal>> lengthHistory;
-    QList<QVector<qreal>> costHistory;
     QList<qreal> moeoRouteLengthBestHistory;
     QList<qreal> moeoRouteCostBestHistory;
     QList<TspDRoute> moeoBestRouteHistory;

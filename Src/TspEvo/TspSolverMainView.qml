@@ -18,10 +18,38 @@ Rectangle {
 
     property TspEvoSolverViewModel solverModel : TspEvoSolverViewModel{}
 
+    property TspDualSolverResultSurfaceViewModel surfaceModel : TspDualSolverResultSurfaceViewModel{}
+
+
     Data {
         id: data
     }
 
+
+    ListModel {
+        id: sampleSurModel
+        ListElement{ length: -10.0; cost: 5.0; generation: -5.0 }
+        //! [0]
+        ListElement{ length: -9.0; cost: 3.0; generation: -4.5 }
+        ListElement{ length: -8.5; cost: 4.1; generation: -4.0 }
+        ListElement{ length: -8.0; cost: 4.75; generation: -3.9 }
+        ListElement{ length: -9.5; cost: 4.9; generation: -4.2 }
+        ListElement{ length: -9.9; cost: 3.42; generation: -3.5 }
+        ListElement{ length: -7.8; cost: 3.1; generation: -4.9 }
+        ListElement{ length: -7.3; cost: 2.91; generation: -4.1 }
+        ListElement{ length: -7.1 ; cost: 3.68 ; generation: -4.52 }
+        ListElement{ length: -8.8 ; cost: 2.96 ; generation: -3.6 }
+        ListElement{ length: -6.94 ; cost: 2.4 ; generation: -2.92 }
+        ListElement{ length: -9.02 ; cost: 4.74 ; generation: -4.18 }
+        ListElement{ length: -9.54 ; cost: 3.1 ; generation: -3.8 }
+        ListElement{ length: -6.86 ; cost: 3.66 ; generation: -3.58 }
+        ListElement{ length: -8.16 ; cost: 1.82 ; generation: -4.64 }
+        ListElement{ length: -7.4 ; cost: 3.18 ; generation: -4.22 }
+        ListElement{ length: -7.9 ; cost: 3.06 ; generation: -4.3 }
+        ListElement{ length: -8.98 ; cost: 2.64 ; generation: -4.44 }
+        ListElement{ length: -6.36 ; cost: 3.96 ; generation: -4.38 }
+        ListElement{ length: -7.18 ; cost: 3.32 ; generation: -4.04 }
+    }
 
     GridLayout {
         id: gridLayout
@@ -149,14 +177,12 @@ Rectangle {
 
                 }
 
-
                 VXYModelMapper{
                     model: solverModel    //TspEvoSolverViewModel{}  //model   //TspEvoFitnessHistoryDataModel{}
                     series: lineone
                     xColumn: 0
                     yColumn: 1
                 }
-
 
 
                 LineSeries {
@@ -184,123 +210,128 @@ Rectangle {
             border.width: 2
 
             /*
+            ValueAxis3D {
+                    id: xAxisCost_3d
+                    min: solverModel.fitnessRangeStart
+                    max: solverModel.fitnessRangeEnd
+                    segmentCount: 10
+                    subSegmentCount: 2
+                }
+
+            ValueAxis3D {
+                    id: yAxisCost_3d
+                    min: solverModel.costsRangeStart
+                    max: solverModel.costsRangeEnd
+                    segmentCount: 10
+                    subSegmentCount: 2
+                }
+
+            ValueAxis3D {
+                    id: zAxisCost_3d
+                    min: 0.0
+                    max: solverModel.generations
+                    segmentCount: 10
+                    subSegmentCount: 2
+                }
+
             Scatter3D {
                 id: scatterGraph
+
                 anchors.fill: parent
                 anchors.margins: parent.border.width
+
                 theme: Theme3D {
                     type: Theme3D.ThemeDigia
                     font.pointSize: 60
                 }
-                scene.activeCamera.cameraPreset: Camera3D.CameraPresetIsometricLeftHigh
+
+                axisX: xAxisCost_3d
+                axisY: yAxisCost_3d
+                axisZ: zAxisCost_3d
+
+
+
+                width: surfaceView.width
+                height: surfaceView.height
+
 
                 Scatter3DSeries {
-                    itemLabelFormat: "City (@xLabel N, @zLabel E): @yLabel"
-                    ItemModelScatterDataProxy {
-                        itemModel: data.sharedData
-                        // Mapping model roles to scatter series item coordinates.
-                        xPosRole: "Distance"
-                        zPosRole: "Cost"
-                        yPosRole: "Generation"
+
+                    itemLabelFormat: "Sciezka (@xLabel Dlugosc, @zLabel Koszt): @yLabel"
+                    itemSize: 0.1
+                    mesh: Abstract3DSeries.MeshCube
+
+                    ItemModelSurfaceDataProxy {
+                        itemModel: sampleSurModel   //surfaceModel //   //surfaceModel
+                        xPosRole: "cost"
+                        yPosRole: "length"
+                        zPosRole: "generation"
+
+                        //rowRole: "cost"
+                       // columnRole: "length"
+                       // : "generation"
+
                     }
                 }
             }
 
-            */
+             */
+
+
 
             Item {
-                 id: surfaceView
-                 width: parent.width
-                 height: parent.height
-                 anchors.top: parent.top
-                 anchors.left: parent.left
+                id: dataView
+                anchors.bottom: parent.bottom
+                //! [9]
+                width: parent.width
+                height: parent.height
+                //! [8]
 
-                 Data {
-                     id: surfaceData
-                 }
+                //! [2]
+                Scatter3D {
+                    id: scatterGraph
+                    width: dataView.width
+                    height: dataView.height
+                    //! [2]
+                    //! [3]
+                    theme: Theme3D {
+                        type: Theme3D.ThemeDigia
+                        font.pointSize: 40
+                    }
 
-                 //! [0]
-                 ColorGradient {
-                     id: surfaceGradient
-                     ColorGradientStop { position: 0.0; color: "darkslategray" }
-                     ColorGradientStop { id: middleGradient; position: 0.25; color: "peru" }
-                     ColorGradientStop { position: 1.0; color: "red" }
-                 }
-                 //! [0]
+                    shadowQuality: AbstractGraph3D.ShadowQualitySoftLow
+                    //! [3]
+                    //! [6]
+                    axisX.segmentCount: 3
+                    axisX.subSegmentCount: 2
+                    axisX.labelFormat: "%.2f"
+                    axisZ.segmentCount: 2
+                    axisZ.subSegmentCount: 2
+                    axisZ.labelFormat: "%.2f"
+                    axisY.segmentCount: 2
+                    axisY.subSegmentCount: 2
+                    axisY.labelFormat: "%.2f"
+                    //! [6]
+                    //! [5]
+                    Scatter3DSeries {
+                        id: scatterSeries
+                         mesh: Abstract3DSeries.MeshCube
+                        itemLabelFormat: "Series 1: X:@xLabel Y:@yLabel Z:@zLabel"
 
-                 Surface3D {
-                     id: surfacePlot
-                     width: surfaceView.width
-                     height: surfaceView.height
-                     //! [7]
-                     theme: Theme3D {
-                         type: Theme3D.ThemeStoneMoss
-                         font.family: "STCaiyun"
-                         font.pointSize: 35
-                         colorStyle: Theme3D.ColorStyleRangeGradient
-                         baseGradients: [surfaceGradient]
-                     }
-                     //! [7]
-                     shadowQuality: AbstractGraph3D.ShadowQualityMedium
-                     selectionMode: AbstractGraph3D.SelectionSlice | AbstractGraph3D.SelectionItemAndRow
-                     scene.activeCamera.cameraPreset: Camera3D.CameraPresetIsometricLeft
-                     axisY.min: 0.0
-                     axisY.max: 500.0
-                     axisX.segmentCount: 10
-                     axisX.subSegmentCount: 2
-                     axisX.labelFormat: "%i"
-                     axisZ.segmentCount: 10
-                     axisZ.subSegmentCount: 2
-                     axisZ.labelFormat: "%i"
-                     axisY.segmentCount: 5
-                     axisY.subSegmentCount: 2
-                     axisY.labelFormat: "%i"
-                     axisY.title: "Height"
-                     axisX.title: "Latitude"
-                     axisZ.title: "Longitude"
-
-                     //! [5]
-                     Surface3DSeries {
-                         id: surfaceSeries
-                         flatShadingEnabled: false
-                         drawMode: Surface3DSeries.DrawSurface
-
-                         ItemModelSurfaceDataProxy {
-                             //! [5]
-                             //! [6]
-                             itemModel: surfaceData.model
-                             rowRole: "longitude"
-                             columnRole: "latitude"
-                             yPosRole: "height"
-                         }
-                         //! [6]
-                         onDrawModeChanged: checkState()
-                     }
-                     //! [4]
-                     Surface3DSeries {
-                         id: heightSeries
-                         flatShadingEnabled: false
-                         drawMode: Surface3DSeries.DrawSurface
-                         visible: false
-
-                         HeightMapSurfaceDataProxy {
-                             heightMapFile: ":/heightmaps/image"
-                             // We don't want the default data values set by heightmap proxy.
-                             minZValue: 30
-                             maxZValue: 60
-                             minXValue: 67
-                             maxXValue: 97
-                         }
-
-                         onDrawModeChanged: checkState()
-                     }
-                     //! [4]
-                 }
-             }
-
-
+                        ItemModelScatterDataProxy {
+                            itemModel:  surfaceModel    //dataModel
+                            xPosRole: "cost"
+                            yPosRole: "length"
+                            zPosRole: "generation"
+                        }
+                        //! [11]
+                    }
+                }
 
         }
+        }
+
+
 
         Rectangle {
             width: parent.width *0.5
@@ -332,7 +363,6 @@ Rectangle {
                     }
                     width: 200
                     onCurrentIndexChanged: {
-                        //console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
                         solverModel.SetMethod( cbItems2.get(currentIndex).param);
                     }
 
@@ -417,6 +447,9 @@ Rectangle {
                         solverModel.SolveMOEO();
                       //  solverModel.GetResult();
                         graphView1.update();
+
+                        surfaceModel.updateData();
+                       // TspDualSolverResultSurfaceViewModel.endResetModel();
                     }
 
                 }

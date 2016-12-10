@@ -42,7 +42,13 @@ extern  qreal maximumCostPath;
 extern  qreal minimumCostLength;
 extern  qreal maximumCostLength;
 
-  void DesignateParetoFrontSolutionsForPopulation(int limit,eoPop <TspDRoute> pop);
+extern std::vector<std::vector<qreal>> lengthHistory;
+extern std::vector<std::vector<qreal>> costHistory;
+
+extern int tspGenerations;
+extern int tspPopSize;
+
+void DesignateParetoFrontSolutionsForPopulation(int limit,eoPop <TspDRoute> pop);
 
 class TspDataService    //: public QObject
 {
