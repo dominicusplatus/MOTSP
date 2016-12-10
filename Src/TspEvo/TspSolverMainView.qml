@@ -403,6 +403,9 @@ Rectangle {
                 SpinBox {
                     id: spinboxPopSize
                     value : solverModel.populationSize
+                    from : 1
+                    to : 200
+                    stepSize : 5
                     onValueChanged : {
                               solverModel.setpopulationSize(spinboxPopSize.value);
                     }
@@ -416,6 +419,9 @@ Rectangle {
                 SpinBox {
                     id: spinboxGenerations
                     value : solverModel.generations
+                    from : 1
+                    to : 2000
+                    stepSize : 10
                     onValueChanged : {
                               solverModel.setGenerations(spinboxGenerations.value);
                     }
@@ -425,13 +431,59 @@ Rectangle {
                 Label {
                     text: "Mutation probability %"
                 }
+/*
+                TextInput{
+                    id: textInput1;
+                    text: "1"
+                }
+*/
 
                 SpinBox {
                     id: spinboxMutProb
                     value : solverModel.mutationProb
-                    onValueChanged : {
-                              solverModel.setMutationProb(spinboxMutProb.value);
-                    }
+                    from : 0
+                    to : 100
+                    stepSize :1
+                }
+
+
+                Label {
+                    text: "Crossover probability %"
+                }
+
+                SpinBox {
+                    id: spinboxCrossProb
+                    value : solverModel.crossoverProb
+                    from : 0
+                    to : 100
+                    stepSize : 1
+                }
+
+
+
+                Label {
+                    text: "Archive size (SPEA)"
+                }
+
+                SpinBox {
+                    id: spinboxArchiveSize
+                    value : solverModel.m_param_SPEA_Arch
+                    from : 0
+                    to : 200
+                    stepSize : 1
+                }
+
+
+                Label {
+                    text: "K (SPEA)"
+                }
+
+                SpinBox {
+                    id: spinboxkSPEA
+                    value : solverModel.m_param_SPEA_K
+                    from : 0
+                    to : 100
+                    stepSize : 1
                 }
 
 

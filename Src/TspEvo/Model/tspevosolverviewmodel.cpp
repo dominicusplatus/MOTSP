@@ -20,7 +20,7 @@ TspEvoSolverViewModel::TspEvoSolverViewModel(QObject *parent) : QAbstractTableMo
        tspPopSize = 10;
        m_columnCount = 4;
        tspGenerations = 40;
-       m_mutationProb = 0.02;
+       m_mutationProb = 1.0;
        m_rowCount = tspPopSize;
 
        //Solve();
@@ -161,6 +161,7 @@ void TspEvoSolverViewModel::SolveMOEO()
 
         eoState state;                // to keep all things allocated
 
+        /*
         double P_CROSS = 1.0;
         double EXT_P_MUT = 1.0;
         double INT_P_MUT = 0.083;
@@ -168,6 +169,7 @@ void TspEvoSolverViewModel::SolveMOEO()
         unsigned int NB_OBJ= (unsigned int)(2);
         unsigned int ARC_SIZE =  100;
         unsigned int K = (10);
+    */
 
         TspRoutePopulationsHistory.clear();
         TspRouteHistory.clear();
@@ -195,7 +197,7 @@ void TspEvoSolverViewModel::SolveMOEO()
          TspGenerationEvaluationCheckpoint popChkpt;
          checkpoint->add(popChkpt);
 
-         eoSGAGenOp < TspDRoute > op(xover, P_CROSS, mutation, EXT_P_MUT);
+         eoSGAGenOp < TspDRoute > op(xover, m_crossoverProb, mutation, m_mutationProb);
          moeoAdditiveEpsilonBinaryMetric < TSPObjectiveVector > metric;
 
 
@@ -207,8 +209,8 @@ void TspEvoSolverViewModel::SolveMOEO()
                  do_run(algo, pop);
          }
          else if (solverAlgorithm == SPEA2 ){
-                moeoSPEA2Archive<TspDRoute> arch(ARC_SIZE);
-                moeoSPEA2<TspDRoute> algo(*checkpoint, evalFunc ,xover, P_CROSS, mutation, EXT_P_MUT, arch, K, false);
+                moeoSPEA2Archive<TspDRoute> arch(m_param_SPEA_Arch);
+                moeoSPEA2<TspDRoute> algo(*checkpoint, evalFunc ,xover, m_crossoverProb, mutation, 0.01, arch, m_param_SPEA_K, false);
                   do_run(algo, pop);
          }
          else if (solverAlgorithm == NSGA ){
@@ -335,7 +337,28 @@ void TspEvoSolverViewModel::setGenerations(qreal a)
 void TspEvoSolverViewModel::setMutationProb(qreal a)
 {
     m_mutationProb = a;
+    emit mutationProbChanged(m_mutationProb);
 }
+
+void TspEvoSolverViewModel::setkfactor(qreal a)
+{
+    m_param_SPEA_K = a;
+    emit kfactorChanged(m_param_SPEA_K);
+}
+
+void TspEvoSolverViewModel::setarchSize(qreal a)
+{
+    m_param_SPEA_Arch = a;
+    emit archSizeChanged(m_param_SPEA_Arch);
+}
+
+
+void TspEvoSolverViewModel::setCrossoverProb(qreal a)
+{
+    m_crossoverProb = a;
+    emit crossoverProbChanged(m_crossoverProb);
+}
+
 
 void TspEvoSolverViewModel::setfitnessRangeStart(qreal a)
 {
@@ -371,6 +394,22 @@ void TspEvoSolverViewModel::setcostsRangeEnd(qreal a)
  {
         return m_mutationProb;
  }
+
+ qreal TspEvoSolverViewModel::getkfactor()
+ {
+        return m_param_SPEA_K;
+ }
+ qreal TspEvoSolverViewModel::getarchSize()
+ {
+        return m_param_SPEA_Arch;
+ }
+
+
+ qreal TspEvoSolverViewModel::getCrossoverProb()
+ {
+        return m_crossoverProb;
+ }
+
 
  qreal TspEvoSolverViewModel::getfitnessRangeStart()
  {

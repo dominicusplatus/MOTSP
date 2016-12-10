@@ -87,12 +87,17 @@ class TspEvoSolverViewModel : public QAbstractTableModel
     Q_PROPERTY(qreal populationSize READ getpopulationSize WRITE setpopulationSize NOTIFY populationSizeChanged)
     Q_PROPERTY(qreal generations READ getGenerations WRITE setGenerations NOTIFY generationsChanged)
     Q_PROPERTY(qreal mutationProb READ getMutationProb WRITE setMutationProb NOTIFY mutationProbChanged)
+    Q_PROPERTY(qreal crossoverProb READ getCrossoverProb WRITE setCrossoverProb NOTIFY crossoverProbChanged)
+
+     Q_PROPERTY(qreal kfactor READ getkfactor  WRITE setkfactor NOTIFY kfactorChanged)
+     Q_PROPERTY(qreal archSize READ getarchSize  WRITE setarchSize NOTIFY archSizeChanged)
 
     Q_PROPERTY(qreal fitnessRangeStart READ getfitnessRangeStart WRITE setfitnessRangeStart NOTIFY fitnessRangeStartChanged)
     Q_PROPERTY(qreal fitnessRangeEnd READ getfitnessRangeEnd WRITE setfitnessRangeEnd NOTIFY fitnessRangeEndChanged)
 
     Q_PROPERTY(qreal costsRangeStart READ getcostsRangeStart WRITE setcostsRangeStart NOTIFY costsRangeStartChanged)
     Q_PROPERTY(qreal costsRangeEnd READ getcostsRangeEnd WRITE setcostsRangeEnd NOTIFY costsRangeEndChanged)
+
 
     Q_PROPERTY(TspEvoFitnessHistoryDataModel* historyModel READ gethistoryModel WRITE sethistoryModel NOTIFY historyModelChanged)
 public:
@@ -107,10 +112,15 @@ public:
     qreal getpopulationSize();
     qreal getGenerations();
     qreal getMutationProb();
+    qreal getCrossoverProb();
     qreal getfitnessRangeStart();
     qreal getfitnessRangeEnd();
     qreal getcostsRangeStart();
     qreal getcostsRangeEnd();
+
+     qreal getkfactor();
+     qreal getarchSize();
+
     TspEvoFitnessHistoryDataModel* gethistoryModel();
     void UpdateDataRange();
     TspDRoute GetPopulationBestRoute(eoPop<TspDRoute> pop);
@@ -128,13 +138,15 @@ public:
     void clearMapping() { m_mapping.clear(); }
 
 
-
 signals:
     int DidSolveGeneration();
     void populationChanged(const eoPop <TspDRoute> &newPopulation);
     void populationSizeChanged(const qreal &newSize);
     void generationsChanged(const qreal &newSize);
     void mutationProbChanged(const qreal &newSize);
+    void crossoverProbChanged(const qreal &newSize);
+    void kfactorChanged(const qreal &newSize);
+    void archSizeChanged(const qreal &newSize);
 
     void fitnessRangeStartChanged(const qreal &newSize);
     void fitnessRangeEndChanged(const qreal &newSize);
@@ -147,6 +159,9 @@ public slots:
     void setpopulationSize(qreal a);
     void setGenerations(qreal a);
     void setMutationProb(qreal a);
+    void setCrossoverProb(qreal a);
+    void setkfactor(qreal a);
+    void setarchSize(qreal a);
 
     void setfitnessRangeStart(qreal a);
     void setfitnessRangeEnd(qreal a);
@@ -160,10 +175,15 @@ private:
   //  qreal m_populationsize;
    // qreal m_generations;
     qreal m_mutationProb;
+    qreal m_crossoverProb;
     qreal m_fitnessRangeStart;
     qreal m_fitnessRangeEnd;
     qreal m_costsRangeStart;
     qreal m_costsRangeEnd;
+
+    qreal m_param_SPEA_K;
+    qreal m_param_SPEA_Arch;
+
     TspEvoFitnessHistoryDataModel m_historyModel;
 
     QList<qreal> moeoRouteLengthBestHistory;
